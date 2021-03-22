@@ -1,0 +1,884 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>5. Kernel Method &#8212; Machine Learning Notes</title>
+    
+  <link rel="stylesheet" href="_static/css/index.f658d18f9b420779cfdf24aa0a7e2d77.css">
+
+    
+  <link rel="stylesheet"
+    href="_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    
+      
+  <link rel="stylesheet"
+    href="_static/vendor/open-sans_all/1.44.1/index.css">
+  <link rel="stylesheet"
+    href="_static/vendor/lato_latin-ext/1.44.1/index.css">
+
+    
+    <link rel="stylesheet" href="_static/sphinx-book-theme.e7340bb3dbd8dde6db86f25597f54a1b.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
+    <link rel="stylesheet" type="text/css" href="_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+    
+  <link rel="preload" as="script" href="_static/js/index.d3f166471bb80abb5163.js">
+
+    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/language_data.js"></script>
+    <script src="_static/togglebutton.js"></script>
+    <script src="_static/clipboard.min.js"></script>
+    <script src="_static/copybutton.js"></script>
+    <script >var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="_static/sphinx-book-theme.7d483ff0a819d6edff12ce0b1ead3928.js"></script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["\\(", "\\)"]], "displayMath": [["\\[", "\\]"]], "processRefs": false, "processEnvironments": false}})</script>
+    <script async="async" src="https://unpkg.com/thebelab@latest/lib/index.js"></script>
+    <script >
+        const thebe_selector = ".thebe"
+        const thebe_selector_input = "pre"
+        const thebe_selector_output = ".output"
+    </script>
+    <script async="async" src="_static/sphinx-thebe.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="6. Decision Tree" href="06_decision_tree.html" />
+    <link rel="prev" title="4. Generative Learning Algorithms" href="04_generative_learning_algorithms.html" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="en" />
+
+
+
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
+    
+        <div class="navbar-brand-box">
+<a class="navbar-brand text-wrap" href="index.html">
+  
+  <img src="_static/logo.png" class="logo" alt="logo">
+  
+  
+  <h1 class="site-logo" id="site-title">Machine Learning Notes</h1>
+  
+</a>
+</div><form class="bd-search d-flex align-items-center" action="search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form>
+<nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
+    <ul class="nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="content.html">
+   This is a notes on machine learning
+  </a>
+ </li>
+</ul>
+<ul class="current nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="01_introduction.html">
+   1. Introduction
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="02_linear_regression.html">
+   2. Linear Regression
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="03_logistic_regression.html">
+   3. Logistic Regression
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="04_generative_learning_algorithms.html">
+   4. Generative Learning Algorithms
+  </a>
+ </li>
+ <li class="toctree-l1 current active">
+  <a class="current reference internal" href="#">
+   5. Kernel Method
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="06_decision_tree.html">
+   6. Decision Tree
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="07_ensemble_learning.html">
+   7. Ensemble Learning
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="08_xgboost &amp; ligthgbm.html">
+   8. XGBoost &amp; LightGBM
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="09_neural_network.html">
+   9. Neural Network
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="10_learning_theory.html">
+   10. Learning Theory
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="11_clustering.html">
+   11. Clustering
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="12_dimentionality_reduction.html">
+   12. Dimentionality Reduction
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="13_EM.html">
+   13. EM
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="14_HMM.html">
+   14. Hidden Markov Model
+  </a>
+ </li>
+</ul>
+
+</nav> <!-- To handle the deprecated key -->
+
+<div class="navbar_extra_footer">
+  Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+</div>
+
+</div>
+
+
+          
+
+
+          
+<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
+    
+    <div class="topbar container-xl fixed-top">
+    <div class="topbar-contents row">
+        <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show"></div>
+        <div class="col pl-md-4 topbar-main">
+            
+            <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
+                data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
+                aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
+                title="Toggle navigation" data-toggle="tooltip" data-placement="left">
+                <i class="fas fa-bars"></i>
+                <i class="fas fa-arrow-left"></i>
+                <i class="fas fa-arrow-up"></i>
+            </button>
+            
+            
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
+            class="fas fa-download"></i></button>
+
+    <div class="dropdown-buttons">
+        <!-- ipynb file if we had a myst markdown file -->
+        
+        <!-- Download raw file -->
+        <a class="dropdown-buttons" href="_sources/05_kernel_method.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
+                data-placement="left">.ipynb</button></a>
+        <!-- Download PDF via print -->
+        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
+            onClick="window.print()" data-toggle="tooltip" data-placement="left">.pdf</button>
+    </div>
+</div>
+
+            <!-- Source interaction buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Connect with source repository"><i class="fab fa-github"></i></button>
+    <div class="dropdown-buttons sourcebuttons">
+        <a class="repository-button"
+            href="https://github.com/executablebooks/jupyter-book"><button type="button" class="btn btn-secondary topbarbtn"
+                data-toggle="tooltip" data-placement="left" title="Source repository"><i
+                    class="fab fa-github"></i>repository</button></a>
+        <a class="issues-button"
+            href="https://github.com/executablebooks/jupyter-book/issues/new?title=Issue%20on%20page%20%2F05_kernel_method.html&body=Your%20issue%20content%20here."><button
+                type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip" data-placement="left"
+                title="Open an issue"><i class="fas fa-lightbulb"></i>open issue</button></a>
+        
+    </div>
+</div>
+
+
+            <!-- Full screen (wrap in <a> to have style consistency -->
+            <a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
+                    data-placement="bottom" onclick="toggleFullScreen()" aria-label="Fullscreen mode"
+                    title="Fullscreen mode"><i
+                        class="fas fa-expand"></i></button></a>
+
+            <!-- Launch buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
+    <div class="dropdown-buttons">
+        
+        <a class="binder-button" href="https://mybinder.org/v2/gh/executablebooks/jupyter-book/master?urlpath=tree/docs/05_kernel_method.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Launch Binder" data-toggle="tooltip"
+                data-placement="left"><img class="binder-button-logo"
+                    src="_static/images/logo_binder.svg"
+                    alt="Interact on binder">Binder</button></a>
+        
+        
+        
+        
+    </div>
+</div>
+
+        </div>
+
+        <!-- Table of contents -->
+        <div class="d-none d-md-block col-md-2 bd-toc show">
+            
+        <div class="tocsection onthispage pt-5 pb-3">
+            <i class="fas fa-list"></i>
+            Contents
+        </div>
+        <nav id="bd-toc-nav">
+            <ul class="nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#polynomial-regression">
+   5.1. Polynomial Regression
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#least-mean-squares-with-features">
+     5.1.1. least mean squares with features
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#kernel">
+     5.1.2. kernel
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#support-vector-machine">
+   5.2. support vector machine
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#margins">
+     5.2.1. Margins
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#the-optimal-margin-classifier">
+     5.2.2. the optimal margin classifier
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#lagrange-duality">
+     5.2.3. lagrange duality
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#use-lagrange-duality">
+   5.3. 2.4 use lagrange duality
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#non-separable-case">
+     5.3.1. non-separable case
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#smo-algorithm">
+     5.3.2. SMO algorithm
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#svm-with-kernels">
+   5.4. SVM with kernels
+  </a>
+ </li>
+</ul>
+
+        </nav>
+        
+        </div>
+    </div>
+</div>
+    <div id="main-content" class="row">
+        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+        
+              <div>
+                
+  <div class="section" id="kernel-method">
+<h1><span class="section-number">5. </span>Kernel Method<a class="headerlink" href="#kernel-method" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="polynomial-regression">
+<h2><span class="section-number">5.1. </span>Polynomial Regression<a class="headerlink" href="#polynomial-regression" title="Permalink to this headline">¶</a></h2>
+<p>basic linear regression with one variable:</p>
+<div class="math notranslate nohighlight">
+\[y=\theta_{0} + \theta_{1}x\]</div>
+<p>what if linear model could not nicely fit training examples?<br>
+we can naturally extend linear model to polynomial model, for example:</p>
+<div class="math notranslate nohighlight">
+\[y=\theta_{0} + \theta_{1}x + \theta_{2}x^{2} + \theta_{3}x^{3}\]</div>
+<p>this method can be conclude as: map original attibutes x to some new set of quantities <span class="math notranslate nohighlight">\(\phi(x)\)</span> (called features), and use the same set of model.</p>
+<div class="section" id="least-mean-squares-with-features">
+<h3><span class="section-number">5.1.1. </span>least mean squares with features<a class="headerlink" href="#least-mean-squares-with-features" title="Permalink to this headline">¶</a></h3>
+<p>let <span class="math notranslate nohighlight">\(\phi : \mathbb{R}^{d} \to \mathbb{R}^{p}\)</span> be a feature map, then original batch gradient descent:</p>
+<div class="math notranslate nohighlight">
+\[\theta := \theta + \alpha\sum_{i=1}^{n}(y^{(i)} - \theta^{T}x^{(i)})x^{(i)}\]</div>
+<p>using features:</p>
+<div class="math notranslate nohighlight">
+\[\theta := \theta + \alpha\sum_{i=1}^{n}(y^{(i)} - \theta^{T}\phi(x^{(i)}))\phi(x^{(i)})\]</div>
+<p>the above becomes computationally expensive when <span class="math notranslate nohighlight">\(\phi(x)\)</span> is high dimensional.<br>
+but we can observe that, if at some point , <span class="math notranslate nohighlight">\(\theta\)</span> can be represented as:</p>
+<div class="math notranslate nohighlight">
+\[\theta = \sum_{i=1}^{n}\beta_{i}\phi(x^{(i)})\]</div>
+<p>then in the next round:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{equation}
+\begin{split}
+\theta &amp;:= \theta + \alpha\sum_{i=1}^{n}(y^{(i)} - \theta^{T}\phi(x^{(i)}))\phi(x^{(i)}) \\
+&amp;=\sum_{i=1}^{n}\beta_{i}\phi(x^{(i)}) + \alpha\sum_{i=1}^{n}(y^{(i)} - \theta^{T}\phi(x^{(i)}))\phi(x^{(i)}) \\
+&amp;=\sum_{i=1}^{n}(\beta_{i} + \alpha(y^{(i)} - \theta^{T}\phi(x^{(i)})))\phi(x^{(i)})
+\end{split}
+\end{equation}
+\end{split}\]</div>
+<p><span class="math notranslate nohighlight">\(\theta\)</span> can be also represented as a linear representation of <span class="math notranslate nohighlight">\(\phi(x^{(i)})\)</span><br>
+we can then derive <span class="math notranslate nohighlight">\(\beta\)</span>’s update rule:</p>
+<div class="math notranslate nohighlight">
+\[\beta_{i} := \beta_{i} + \alpha(y^{(i)} - \sum_{j=1}^{n}\beta_{j}\phi(x^{(j)})^{T}\phi(x^{(i)}))\]</div>
+<p>we only need to compute <span class="math notranslate nohighlight">\(\left \langle \phi(x^{(j)}), \phi(x^{(i)}) \right \rangle = \phi(x^{(j)})^{T}\phi(x^{(i)}))\)</span> to update parameters no matter how high the feature dimension p is.</p>
+</div>
+<div class="section" id="kernel">
+<h3><span class="section-number">5.1.2. </span>kernel<a class="headerlink" href="#kernel" title="Permalink to this headline">¶</a></h3>
+<p>we define the kernel corresponding to the feature map <span class="math notranslate nohighlight">\(\phi\)</span> as a function that satisfying:</p>
+<div class="math notranslate nohighlight">
+\[K(x, z) := \left \langle \phi(x), \phi(z) \right \rangle\]</div>
+<p>define the kernel matrix:</p>
+<div class="math notranslate nohighlight">
+\[K_{ij} = K(x^{(i)},x^{(j)})\]</div>
+<p>properties of kernel matrix:</p>
+<ol class="simple">
+<li><p>symmetric, since <span class="math notranslate nohighlight">\(\phi(x)^{T}\phi(z) = \phi(z)^{T}\phi(x)\)</span>.</p></li>
+<li><p>positive semidefinite:</p></li>
+</ol>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{equation}
+\begin{split}
+z^{T}Kz=&amp;\sum_{i}\sum_{j}z_{i}K_{ij}z_{j}\\
+=&amp;\sum_{i}\sum_{j}z_{i}\phi(x^{(i)})^{T}\phi(x^{(j)})z_{j}\\
+=&amp;\sum_{i}\sum_{j}z_{i}\sum_{k}\phi_{k}(x^{(i)})\phi_{k}(x^{(j)})z_{j}\\
+=&amp;\sum_{k}\sum_{i}\sum_{j}z_{i}\phi_{k}(x^{(i)})\phi_{k}(x^{(j)})z_{j}\\
+=&amp;\sum_{k}\left(\sum_{i}z_{i}\phi_{k}(x^{(i)})\right)^2\\
+\ge&amp;\ 0
+\end{split}
+\end{equation}
+\end{split}\]</div>
+<p>in the other hand, we have sufficient conditions for valid kernels:</p>
+<p>(mercer): let <span class="math notranslate nohighlight">\( K: \mathbb{R}^{d} \times \mathbb{R}^{d} \mapsto \mathbb{R}\)</span>. then for K be a valid kernel, it is necessary and sufficient that for any <span class="math notranslate nohighlight">\(\left \{ x^{(1)},...,x^{(n)} \right \} \)</span>, the corresponding kernel matrix is symmetric positive semi-definite.</p>
+<p>proof t.b.c.</p>
+</div>
+</div>
+<div class="section" id="support-vector-machine">
+<h2><span class="section-number">5.2. </span>support vector machine<a class="headerlink" href="#support-vector-machine" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="margins">
+<h3><span class="section-number">5.2.1. </span>Margins<a class="headerlink" href="#margins" title="Permalink to this headline">¶</a></h3>
+<p>consider logistic regression, where the probability <span class="math notranslate nohighlight">\(p(y=1|x;\theta)\)</span> is modeled by <span class="math notranslate nohighlight">\(h_{\theta}(x)=\sigma(\theta^{T}x)\)</span>. we predict 1 on an input x if and only if <span class="math notranslate nohighlight">\(\theta^{T}x &gt;= 0.5\)</span>, the larger <span class="math notranslate nohighlight">\(\theta^{T}x\)</span> is, the more confidence we are.<br>
+the distance from the hyperplane is important.</p>
+<p>functional margin:</p>
+<div class="math notranslate nohighlight">
+\[\hat{\gamma}^{(i)}=y^{(i)}(w^{T}x^{(i)} + b)\]</div>
+<p>geometric margin:</p>
+<div class="math notranslate nohighlight">
+\[\gamma^{(i)}=\frac{y^{(i)}(w^{T}x^{(i)} + b)}{\left \| w \right \| }\]</div>
+<p>geometric margin is the euclid distance.</p>
+</div>
+<div class="section" id="the-optimal-margin-classifier">
+<h3><span class="section-number">5.2.2. </span>the optimal margin classifier<a class="headerlink" href="#the-optimal-margin-classifier" title="Permalink to this headline">¶</a></h3>
+<p>we want to maximize geometic margin:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{equation}
+\begin{split}
+\underset{\gamma, w, b}{max}\ &amp;\gamma \\
+s.t\quad &amp;\frac{y^{(i)}(w^{T}x^{(i)} + b)}{\left \| w \right \| } &gt;= \gamma
+\end{split}
+\end{equation}
+\end{split}\]</div>
+<p>without loss of generality, we can set <span class="math notranslate nohighlight">\(\gamma\left \| w \right \|=1\)</span>, then the above is equivalent to:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{equation}
+\begin{split}
+\underset{w, b}{min}\ &amp;\frac{1}{2}{\left \| w \right \|}^2 \\
+s.t\quad &amp;{y^{(i)}(w^{T}x^{(i)} + b)} &gt;= 1
+\end{split}
+\end{equation}
+\end{split}\]</div>
+</div>
+<div class="section" id="lagrange-duality">
+<h3><span class="section-number">5.2.3. </span>lagrange duality<a class="headerlink" href="#lagrange-duality" title="Permalink to this headline">¶</a></h3>
+<p>consider the following primal optimization problem:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{equation}
+\begin{split}
+\underset{w}{min}\quad &amp;f(w)\\
+s.t\quad &amp;g_{i}(w) \le 0,i=1,...,k\\
+&amp;h_{i}(w)=0, i=1,...,l
+\end{split}
+\end{equation}
+\end{split}\]</div>
+<p>we define the lagrangian of this optimization problem:</p>
+<div class="math notranslate nohighlight">
+\[L(w,\alpha,\beta)=f(w) + \sum_{i=1}^{k}\alpha_{i}g_{i}(w) + \sum_{i=1}^{l}\beta_{i}h_{i}(w)\]</div>
+<p>here <span class="math notranslate nohighlight">\(\alpha_{i}, \beta_{i}\)</span> are the lagrange multipliers. consider the quantity:</p>
+<div class="math notranslate nohighlight">
+\[\theta_{P}(w) = \underset{\alpha,\beta:\alpha_{i}\ge{0}}{max}L(w,\alpha,\beta) \]</div>
+<p>here <span class="math notranslate nohighlight">\(P\)</span> stands for “primal”.</p>
+<p>let some <span class="math notranslate nohighlight">\(w\)</span> be given, if <span class="math notranslate nohighlight">\(w\)</span> violates any primal constraints, i.e., if either <span class="math notranslate nohighlight">\(g_{i}(w) &gt; 0\)</span> or <span class="math notranslate nohighlight">\(h_{i}(w) \ne 0\)</span>, then:</p>
+<div class="math notranslate nohighlight">
+\[\theta_{P}(w) = \underset{\alpha,\beta:\alpha_{i}\ge{0}}{max}f(w) + \sum_{i=1}^{k}\alpha_{i}g_{i}(w) + \sum_{i=1}^{l}\beta_{i}h_{i}(w) = \infty\]</div>
+<p>conversely, if the constraints are saitistied for particular <span class="math notranslate nohighlight">\(w\)</span>, then <span class="math notranslate nohighlight">\(\theta_{P}(w) = f(w)\)</span>, hence:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\theta_{P}(w) = 
+\begin{cases}
+f(w)\ &amp;\text{if w satisfy constraints}\\
+\infty\ &amp;\text{otherwise.}
+\end{cases}
+\end{split}\]</div>
+<p>with this equation, we have:</p>
+<div class="math notranslate nohighlight">
+\[\underset{w}{min}f(w),\ \text{satisfy constraints} \Leftrightarrow \underset{w}{min}\theta_{P}(w)=\underset{w}{min}\underset{\alpha,\beta:\alpha_{i}\ge{0}}{max}L(w,\alpha,\beta)\]</div>
+<p>we define the optimal value of the objective function to be <span class="math notranslate nohighlight">\(p^{\ast} = \underset{w}{min}\theta_{P}(w)\)</span>.</p>
+<p>reverse the min max oder, we define:</p>
+<div class="math notranslate nohighlight">
+\[\theta_{D}(\alpha, \beta) = \underset{w}{min}L(w,\alpha,\beta)\]</div>
+<p>D stands for “dual”, we can pose the dual optimization problem:</p>
+<div class="math notranslate nohighlight">
+\[\underset{\alpha,\beta:\alpha_{i}\ge{0}}{max}\theta_{D}(\alpha, \beta) = \underset{\alpha,\beta:\alpha_{i}\ge{0}}{max}\underset{w}{min}L(w,\alpha,\beta)\]</div>
+<p>we define the optimal <span class="math notranslate nohighlight">\(d^{\ast}=\underset{\alpha,\beta:\alpha_{i}\ge{0}}{max}\theta_{D}(\alpha, \beta)\)</span>, it can easily be shown that:</p>
+<div class="math notranslate nohighlight">
+\[d^{\ast}=\underset{\alpha,\beta:\alpha_{i}\ge{0}}{max}\theta_{D}(\alpha, \beta) \le \underset{w}{min}\theta_{P}(w) = p^{\ast}\]</div>
+<p>however, under certain conditions, we have:</p>
+<div class="math notranslate nohighlight">
+\[d^{\ast} = p^{\ast}\]</div>
+<p>so that we can solve the dual problem instead of the primal problem.</p>
+<p>(KKT conditions)suppose <span class="math notranslate nohighlight">\(f\)</span> and <span class="math notranslate nohighlight">\(g_{i}\)</span> are convex, <span class="math notranslate nohighlight">\(h_{i}\)</span> are affine, and there exits some <span class="math notranslate nohighlight">\(w\)</span> so that <span class="math notranslate nohighlight">\(g_{i}(w) &lt; 0\)</span> for all <span class="math notranslate nohighlight">\(i\)</span>. <br>
+under these assumptions, there must exists <span class="math notranslate nohighlight">\(w^{\ast}, \alpha^{\ast}, \beta^{\ast}\)</span> so that <span class="math notranslate nohighlight">\(w^{\ast}\)</span> is the solution to the primal problem, <span class="math notranslate nohighlight">\(\alpha^{\ast},\beta^{\ast}\)</span> are the solutions to the dual problem, and <span class="math notranslate nohighlight">\(p^{\ast}=d^{\ast}=L(w^{\ast}, \alpha^{\ast}, \beta^{\ast})\)</span>.<br>
+moreover, <span class="math notranslate nohighlight">\(w^{\ast}, \alpha^{\ast}, \beta^{\ast}\)</span> iff satisfy the KKT conditions:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{equation}
+\begin{split}
+\frac{\partial}{\partial w_{i}}L(w^{\ast},\alpha^{\ast},\beta^{\ast}) =&amp; 0,\ i=1,...,d\\
+\frac{\partial}{\partial \beta_{i}}L(w^{\ast},\alpha^{\ast},\beta^{\ast}) =&amp; 0,\ i=1,...,l\\
+\alpha_{i}^{\ast}g_{i}(w) =&amp; 0,\ i=1,...,k\\
+g_{i}(w^{\ast}) \le&amp; 0,\ i=1,...,k\\
+\alpha_{i}^{\ast} \ge&amp; 0,\ i=1,...,k
+\end{split}
+\end{equation}
+\end{split}\]</div>
+<p>proof t.b.c.</p>
+</div>
+</div>
+<div class="section" id="use-lagrange-duality">
+<h2><span class="section-number">5.3. </span>2.4 use lagrange duality<a class="headerlink" href="#use-lagrange-duality" title="Permalink to this headline">¶</a></h2>
+<p>previous optimal margin problem:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{equation}
+\begin{split}
+\underset{w, b}{min}\ &amp;\frac{1}{2}{\left \| w \right \|}^2 \\
+s.t\quad &amp;{y^{(i)}(w^{T}x^{(i)} + b)} &gt;= 1
+\end{split}
+\end{equation}
+\end{split}\]</div>
+<p>we can write the constraints as:</p>
+<div class="math notranslate nohighlight">
+\[g_{i}(w) = 1 - y^{(i)}(w^{T}x^{(i)} + b) \le 0\]</div>
+<p>this problem satisfy the KKT prerequisites:</p>
+<ol class="simple">
+<li><p><span class="math notranslate nohighlight">\(\frac{1}{2}{\left \| w \right \|}^2\)</span> is convex.</p></li>
+<li><p><span class="math notranslate nohighlight">\(1 - y^{(i)}(w^{T}x^{(i)} + b)\)</span> is convex.</p></li>
+<li><p>there exits <span class="math notranslate nohighlight">\(w, b\)</span>, such that <span class="math notranslate nohighlight">\(1 - y^{(i)}(w^{T}x^{(i)} + b) &lt; 0\)</span>, just increase the order.</p></li>
+</ol>
+<p>write the lagrangian of this problem:</p>
+<div class="math notranslate nohighlight">
+\[
+L(w,b,\alpha )=\frac{1}{2}\left \| w \right \|^{2} - \sum_{i=1}^{n}\alpha_{i}\left [ y^{(i)}(w^{T}x^{(i)} + b) - 1 \right ]     
+\]</div>
+<p>just solve the dual form of the problem, to do so, we need to first minimize <span class="math notranslate nohighlight">\(L(w,\alpha,\beta)\)</span> with respect to <span class="math notranslate nohighlight">\(w,b\)</span>, setting derivatives to 0:</p>
+<div class="math notranslate nohighlight">
+\[\nabla_{w}L(w, b, \alpha) = w - \sum_{i=1}^{n}\alpha_{i}y^{(i)}x^{(i)} = 0\]</div>
+<p>this implies:</p>
+<div class="math notranslate nohighlight">
+\[w = \sum_{i=1}^{n}\alpha_{i}y^{(i)}x^{(i)}\]</div>
+<p>derivative with respect to b:</p>
+<div class="math notranslate nohighlight">
+\[\nabla_{b}L(w, b, \alpha) = \sum_{i=1}^{n}\alpha_{i}y^{(i)}=0\]</div>
+<p>plug these equations back to lagrangian:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{equation}
+\begin{split}
+L(w, b, \alpha) =&amp; \frac{1}{2}\left \| w \right \|^{2} - \sum_{i=1}^{n}\alpha_{i}\left [ y^{(i)}(w^{T}x^{(i)} + b) - 1 \right ]\\
+=&amp; \frac{1}{2}(\sum_{i=1}^{n}\alpha_{i}y^{(i)}x^{(i)})^{T}(\sum_{i=1}^{n}\alpha_{i}y^{(i)}x^{(i)}) - \sum_{i=1}^{n}\alpha_{i}y^{(i)}(\sum_{i=1}^{n}\alpha_{i}y^{(i)}x^{(i)})^{T}x^{(i)} + b\sum_{i=1}^{n}\alpha_{i}y^{(i)} + \sum_{i=1}^{n}\alpha_{i}\\
+=&amp; \sum_{i=1}^{n}\alpha_{i} - \sum_{i,j=1}^{n}y^{(i)}y^{(j)}\alpha_{i}\alpha_{j}(x^{(i)})^{T}x^{(i)}
+\end{split}
+\end{equation}
+\end{split}\]</div>
+<p>we thus obtain the following dual optimization problem:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{equation}
+\begin{split}
+\underset{\alpha}{max}\quad &amp;W(\alpha)=\sum_{i=1}^{n}\alpha_{i} - \sum_{i,j=1}^{n}y^{(i)}y^{(j)}\alpha_{i}\alpha_{j}\left \langle x^{(i)},x^{(j)} \right \rangle \\
+s.t\quad &amp;\alpha_{i}\ge{0},\ i=1,...,n \\
+&amp;\sum_{i=1}^{n}\alpha_{i}y^{(i)}=0
+\end{split}
+\end{equation}
+\end{split}\]</div>
+<p>this is easier to solve(we’ll talk about it later). after abtained <span class="math notranslate nohighlight">\(\alpha_{i}^{\ast}\)</span>, we have:</p>
+<div class="math notranslate nohighlight">
+\[w^{\ast} = \sum_{i=1}^{n}\alpha_{i}^{\ast}y^{(i)}x^{(i)}\]</div>
+<p>go back to the original problem, we get:</p>
+<div class="math notranslate nohighlight">
+\[b^{\ast} = -\frac{max_{i: y^{(i)}=-1}w^{\ast{T}}x^{(i)} + min_{i: y^{(i)}=1}w^{\ast{T}}x^{(i)}}{2} \]</div>
+<p>when making predictions, we have:</p>
+<div class="math notranslate nohighlight">
+\[w^{T}x + b = \left ( \sum_{i=1}^{n}\alpha_{i}y^{(i)}x^{(i)}\right )^{T}x + b = \sum_{i=1}^{n}\alpha_{i}y^{(i)}\left \langle x^{(i)},x \right \rangle + b\]</div>
+<p>we only needed inner product.</p>
+<div class="section" id="non-separable-case">
+<h3><span class="section-number">5.3.1. </span>non-separable case<a class="headerlink" href="#non-separable-case" title="Permalink to this headline">¶</a></h3>
+<p>so far, we assumed the data is linearly separable.</p>
+<p>while mapping data to a high dimensional feature space via <span class="math notranslate nohighlight">\(\phi\)</span> does not increase the likelihood that the data is separable.</p>
+<p>so we need to make the algorithm work for non-linearly separable datasets.</p>
+<p>we reformulate our optimization as follows:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{equation}
+\begin{split}
+\underset{w, b}{min}\ &amp;\frac{1}{2}{\left \| w \right \|}^2 + C\sum_{i=1}^{n}\xi_{i}\\
+s.t\quad &amp;{y^{(i)}(w^{T}x^{(i)} + b)} &gt;= 1 - \xi_{i},\ i=1,...,n\\
+&amp;\xi_{i} \ge 0,\ i=1,...,n.
+\end{split}
+\end{equation}
+\end{split}\]</div>
+<p>the cost of outlier <span class="math notranslate nohighlight">\(C\xi_{i}\)</span>.</p>
+<p>the lagrangian:</p>
+<div class="math notranslate nohighlight">
+\[
+    L(w,b,\xi,\alpha,r )=\frac{1}{2}\left \| w \right \|^{2} + C\sum_{i=1}^{n}\xi_{i} - \sum_{i=1}^{n}\alpha_{i}\left [ y^{(i)}(w^{T}x^{(i)} + b) - 1 + \xi_{i}\right ] -\sum_{i=1}^{n}r_{i}\xi_{i}     
+\]</div>
+<p>here <span class="math notranslate nohighlight">\(\alpha_{i},r_{i}\)</span> are our lagrange multipliers.</p>
+<p>the dual form of the problem:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{equation}
+\begin{split}
+\underset{\alpha}{max}\quad &amp;W(\alpha)=\sum_{i=1}^{n}\alpha_{i} - \sum_{i,j=1}^{n}y^{(i)}y^{(j)}\alpha_{i}\alpha_{j}\left \langle x^{(i)},x^{(j)} \right \rangle \\
+s.t\quad &amp;0 \le \alpha_{i}\le{C},\ i=1,...,n \\
+&amp;\sum_{i=1}^{n}\alpha_{i}y^{(i)}=0
+\end{split}
+\end{equation}
+\end{split}\]</div>
+<p>the same as before except <span class="math notranslate nohighlight">\(\alpha_{i}\)</span>’s constraints, the calculation for <span class="math notranslate nohighlight">\(b^{\ast}\)</span> has to be modified, t.b.c.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">sklearn</span> <span class="kn">import</span> <span class="n">datasets</span>
+<span class="kn">from</span> <span class="nn">sklearn.pipeline</span> <span class="kn">import</span> <span class="n">Pipeline</span>
+<span class="kn">from</span> <span class="nn">sklearn.preprocessing</span> <span class="kn">import</span> <span class="n">StandardScaler</span>
+<span class="kn">from</span> <span class="nn">sklearn.svm</span> <span class="kn">import</span> <span class="n">LinearSVC</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">iris</span> <span class="o">=</span> <span class="n">datasets</span><span class="o">.</span><span class="n">load_iris</span><span class="p">()</span>
+<span class="n">X</span> <span class="o">=</span> <span class="n">iris</span><span class="p">[</span><span class="s2">&quot;data&quot;</span><span class="p">][:,</span> <span class="mi">2</span><span class="p">:]</span>
+<span class="n">y</span> <span class="o">=</span> <span class="p">(</span><span class="n">iris</span><span class="p">[</span><span class="s2">&quot;target&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">int</span><span class="p">)</span>
+
+<span class="n">svm_clf</span> <span class="o">=</span> <span class="n">Pipeline</span><span class="p">([(</span><span class="s2">&quot;scaler&quot;</span><span class="p">,</span> <span class="n">StandardScaler</span><span class="p">()),</span>
+                    <span class="p">(</span><span class="s2">&quot;linear_svc&quot;</span><span class="p">,</span> <span class="n">LinearSVC</span><span class="p">(</span><span class="n">C</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">loss</span><span class="o">=</span><span class="s2">&quot;hinge&quot;</span><span class="p">))])</span>
+
+<span class="n">svm_clf</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Pipeline(steps=[(&#39;scaler&#39;, StandardScaler()),
+                (&#39;linear_svc&#39;, LinearSVC(C=1, loss=&#39;hinge&#39;))])
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="smo-algorithm">
+<h3><span class="section-number">5.3.2. </span>SMO algorithm<a class="headerlink" href="#smo-algorithm" title="Permalink to this headline">¶</a></h3>
+<p>consider when trying to solve the unconstrained optimization problem:</p>
+<div class="math notranslate nohighlight">
+\[\underset{\alpha}{max}\ W(\alpha_{1},...,\alpha_{n})\]</div>
+<p>we have the coordinate ascent algorithm:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{equation}
+\begin{split}
+&amp;\text{loop until convergence:}\\
+&amp;\qquad \text{for }i=1,...,n:\\
+&amp;\qquad\qquad \alpha_{i}:=\underset{\hat{\alpha_{i}}}{argmax}
+W(\alpha_{1},...,\alpha_{i-1},\hat{\alpha_{i}},\alpha_{i+1},...,\alpha_{n}).
+\end{split}
+\end{equation}
+\end{split}\]</div>
+<p>we can not directly use coordinate ascent facing SVM dual problem:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{equation}
+\begin{split}
+\underset{\alpha}{max}\quad &amp;W(\alpha)=\sum_{i=1}^{n}\alpha_{i} - \sum_{i,j=1}^{n}y^{(i)}y^{(j)}\alpha_{i}\alpha_{j}\left \langle x^{(i)},x^{(j)} \right \rangle \\
+s.t\quad &amp;0 \le \alpha_{i}\le{C},\ i=1,...,n \\
+&amp;\sum_{i=1}^{n}\alpha_{i}y^{(i)}=0
+\end{split}
+\end{equation}
+\end{split}\]</div>
+<p>if we want to update some <span class="math notranslate nohighlight">\(\alpha_{i}\)</span>, we must update at least two of them simutaneously.</p>
+<p>coordinate ascent change to:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{equation}
+\begin{split}
+&amp;\text{loop until convergence:}\\
+&amp;\qquad 1.\text{select some pair } \alpha_{i}, \alpha_{j}.\\
+&amp;\qquad 2.\text{optimize } W(\alpha) \text{ with respect to } \alpha_{i}, \alpha_{j}, \text{while holding other } \alpha_{k} \text{ fixed}.
+\end{split}
+\end{equation}
+\end{split}\]</div>
+<p>the reason that SMO is an efficient is that the update to <span class="math notranslate nohighlight">\(\alpha_{i}, \alpha_{j}\)</span> can be computed efficiently.</p>
+<p>take <span class="math notranslate nohighlight">\(i,j=1,2\)</span> as example, SMO step is like:</p>
+<div class="math notranslate nohighlight">
+\[max\ W(\alpha_{1},\alpha_{2},...,\alpha_{n}) \text{ while } \]</div>
+<div class="math notranslate nohighlight">
+\[\alpha_{3},...,\alpha_{n} \text{ fixed}\]</div>
+<div class="math notranslate nohighlight">
+\[\alpha_{1}y^{(1)} + \alpha_{1}y^{(1)} = \zeta\]</div>
+<div class="math notranslate nohighlight">
+\[0 \le \alpha_{1} \le{C},0 \le \alpha_{2} \le{C},\]</div>
+<p>this can be change to:</p>
+<div class="math notranslate nohighlight">
+\[max\ W(\alpha_{1},(\zeta - \alpha_{1}y^{(1)})y^{(2)},...,\alpha_{n}) \text{ while } L\le \alpha_{1}\le H\]</div>
+<p>this is direct quadratic optimization, easy to solve.</p>
+<p>remained questions:</p>
+<ol class="simple">
+<li><p>the choice of <span class="math notranslate nohighlight">\(\alpha_{i},\alpha_{j}\)</span> , this is heuristic.</p></li>
+<li><p>how to update b.</p></li>
+</ol>
+<p>t.b.c according to Platt’s paper.</p>
+</div>
+</div>
+<div class="section" id="svm-with-kernels">
+<h2><span class="section-number">5.4. </span>SVM with kernels<a class="headerlink" href="#svm-with-kernels" title="Permalink to this headline">¶</a></h2>
+<p>let <span class="math notranslate nohighlight">\(\phi : \mathbb{R}^{d} \to \mathbb{R}^{p}\)</span> be a feature map, the original dual form of the problem:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{equation}
+\begin{split}
+\underset{\alpha}{max}\quad &amp;W(\alpha)=\sum_{i=1}^{n}\alpha_{i} - \sum_{i,j=1}^{n}y^{(i)}y^{(j)}\alpha_{i}\alpha_{j}\left \langle x^{(i)},x^{(j)} \right \rangle \\
+s.t\quad &amp;\alpha_{i}\ge{0},\ i=1,...,n \\
+&amp;\sum_{i=1}^{n}\alpha_{i}y^{(i)}=0
+\end{split}
+\end{equation}
+\end{split}\]</div>
+<p>now change to:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{equation}
+\begin{split}
+\underset{\alpha}{max}\quad &amp;W(\alpha)=\sum_{i=1}^{n}\alpha_{i} - \sum_{i,j=1}^{n}y^{(i)}y^{(j)}\alpha_{i}\alpha_{j}\left \langle \phi(x^{(i)}),\phi(x^{(j)}) \right \rangle \\
+s.t\quad &amp;\alpha_{i}\ge{0},\ i=1,...,n \\
+&amp;\sum_{i=1}^{n}\alpha_{i}y^{(i)}=0
+\end{split}
+\end{equation}
+\end{split}\]</div>
+<p>we only need to know <span class="math notranslate nohighlight">\(\left \langle \phi(x^{(i)}),\phi(x^{(j)}) \right \rangle\)</span> to optimize.</p>
+<p>when predicting:</p>
+<div class="math notranslate nohighlight">
+\[w^{T}\phi(x) + b = \left ( \sum_{i=1}^{n}\alpha_{i}y^{(i)}\phi(x^{(i)})\right )^{T}x + b = \sum_{i=1}^{n}\alpha_{i}y^{(i)}\left \langle \phi(x^{(i)}),\phi(x) \right \rangle + b\]</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="sd">&quot;&quot;&quot;PolynomialFeatures + LinearSVC&quot;&quot;&quot;</span>
+<span class="kn">from</span> <span class="nn">sklearn.datasets</span> <span class="kn">import</span> <span class="n">make_moons</span>
+<span class="kn">from</span> <span class="nn">sklearn.pipeline</span> <span class="kn">import</span> <span class="n">Pipeline</span>
+<span class="kn">from</span> <span class="nn">sklearn.preprocessing</span> <span class="kn">import</span> <span class="n">PolynomialFeatures</span>
+
+<span class="n">polynomial_svm_clf</span> <span class="o">=</span> <span class="n">Pipeline</span><span class="p">([</span>
+        <span class="p">(</span><span class="s2">&quot;poly_features&quot;</span><span class="p">,</span> <span class="n">PolynomialFeatures</span><span class="p">(</span><span class="n">degree</span><span class="o">=</span><span class="mi">3</span><span class="p">)),</span>
+        <span class="p">(</span><span class="s2">&quot;scaler&quot;</span><span class="p">,</span> <span class="n">StandardScaler</span><span class="p">()),</span>
+        <span class="p">(</span><span class="s2">&quot;svm_clf&quot;</span><span class="p">,</span> <span class="n">LinearSVC</span><span class="p">(</span><span class="n">C</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">loss</span><span class="o">=</span><span class="s2">&quot;hinge&quot;</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">))</span>
+    <span class="p">])</span>
+
+<span class="n">polynomial_svm_clf</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Pipeline(steps=[(&#39;poly_features&#39;, PolynomialFeatures(degree=3)),
+                (&#39;scaler&#39;, StandardScaler()),
+                (&#39;svm_clf&#39;, LinearSVC(C=10, loss=&#39;hinge&#39;, random_state=42))])
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="sd">&quot;&quot;&quot;poly SVC&quot;&quot;&quot;</span>
+<span class="kn">from</span> <span class="nn">sklearn.svm</span> <span class="kn">import</span> <span class="n">SVC</span>
+
+<span class="n">poly_kernel_svm_clf</span> <span class="o">=</span> <span class="n">Pipeline</span><span class="p">([</span>
+        <span class="p">(</span><span class="s2">&quot;scaler&quot;</span><span class="p">,</span> <span class="n">StandardScaler</span><span class="p">()),</span>
+        <span class="p">(</span><span class="s2">&quot;svm_clf&quot;</span><span class="p">,</span> <span class="n">SVC</span><span class="p">(</span><span class="n">kernel</span><span class="o">=</span><span class="s2">&quot;poly&quot;</span><span class="p">,</span> <span class="n">degree</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">coef0</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">C</span><span class="o">=</span><span class="mi">5</span><span class="p">))</span>
+<span class="p">])</span>
+<span class="n">poly_kernel_svm_clf</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Pipeline(steps=[(&#39;scaler&#39;, StandardScaler()),
+                (&#39;svm_clf&#39;, SVC(C=5, coef0=1, kernel=&#39;poly&#39;))])
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="sd">&quot;&quot;&quot;rbf SVC&quot;&quot;&quot;</span>
+<span class="kn">from</span> <span class="nn">sklearn.svm</span> <span class="kn">import</span> <span class="n">SVC</span>
+
+<span class="n">rbf_kernel_svm_clf</span> <span class="o">=</span> <span class="n">Pipeline</span><span class="p">([</span>
+    <span class="p">(</span><span class="s2">&quot;scaler&quot;</span><span class="p">,</span> <span class="n">StandardScaler</span><span class="p">()),</span>
+    <span class="p">(</span><span class="s2">&quot;svm_clf&quot;</span><span class="p">,</span> <span class="n">SVC</span><span class="p">(</span><span class="n">kernel</span><span class="o">=</span><span class="s2">&quot;rbf&quot;</span><span class="p">,</span> <span class="n">gamma</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">C</span><span class="o">=</span><span class="mf">0.001</span><span class="p">))</span>
+<span class="p">])</span>
+<span class="n">rbf_kernel_svm_clf</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Pipeline(steps=[(&#39;scaler&#39;, StandardScaler()),
+                (&#39;svm_clf&#39;, SVC(C=0.001, gamma=5))])
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="sd">&quot;&quot;&quot;SVM can support regression&quot;&quot;&quot;</span>
+<span class="kn">from</span> <span class="nn">sklearn.svm</span> <span class="kn">import</span> <span class="n">SVR</span>
+
+<span class="n">svm_poly_reg</span> <span class="o">=</span> <span class="n">SVR</span><span class="p">(</span><span class="n">kernel</span><span class="o">=</span><span class="s2">&quot;poly&quot;</span><span class="p">,</span> <span class="n">degree</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">C</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">epsilon</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span> <span class="n">gamma</span><span class="o">=</span><span class="s2">&quot;scale&quot;</span><span class="p">)</span>
+<span class="n">svm_poly_reg</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>SVR(C=100, degree=2, kernel=&#39;poly&#39;)
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            kernelName: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+              </div>
+              
+        
+        <div class='prev-next-bottom'>
+            
+    <a class='left-prev' id="prev-link" href="04_generative_learning_algorithms.html" title="previous page"><span class="section-number">4. </span>Generative Learning Algorithms</a>
+    <a class='right-next' id="next-link" href="06_decision_tree.html" title="next page"><span class="section-number">6. </span>Decision Tree</a>
+
+        </div>
+        
+        </div>
+    </div>
+    <footer class="footer mt-5 mt-md-0">
+    <div class="container">
+      <p>
+        
+          By newfacade<br/>
+        
+            &copy; Copyright 2020.<br/>
+      </p>
+    </div>
+  </footer>
+</main>
+
+
+      </div>
+    </div>
+
+    
+  <script src="_static/js/index.d3f166471bb80abb5163.js"></script>
+
+
+    
+  </body>
+</html>

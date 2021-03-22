@@ -1,0 +1,524 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>1. Introduction &#8212; Machine Learning Notes</title>
+    
+  <link rel="stylesheet" href="_static/css/index.f658d18f9b420779cfdf24aa0a7e2d77.css">
+
+    
+  <link rel="stylesheet"
+    href="_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    
+      
+  <link rel="stylesheet"
+    href="_static/vendor/open-sans_all/1.44.1/index.css">
+  <link rel="stylesheet"
+    href="_static/vendor/lato_latin-ext/1.44.1/index.css">
+
+    
+    <link rel="stylesheet" href="_static/sphinx-book-theme.e7340bb3dbd8dde6db86f25597f54a1b.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
+    <link rel="stylesheet" type="text/css" href="_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+    
+  <link rel="preload" as="script" href="_static/js/index.d3f166471bb80abb5163.js">
+
+    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/language_data.js"></script>
+    <script src="_static/togglebutton.js"></script>
+    <script src="_static/clipboard.min.js"></script>
+    <script src="_static/copybutton.js"></script>
+    <script >var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="_static/sphinx-book-theme.7d483ff0a819d6edff12ce0b1ead3928.js"></script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["\\(", "\\)"]], "displayMath": [["\\[", "\\]"]], "processRefs": false, "processEnvironments": false}})</script>
+    <script async="async" src="https://unpkg.com/thebelab@latest/lib/index.js"></script>
+    <script >
+        const thebe_selector = ".thebe"
+        const thebe_selector_input = "pre"
+        const thebe_selector_output = ".output"
+    </script>
+    <script async="async" src="_static/sphinx-thebe.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="2. Linear Regression" href="02_linear_regression.html" />
+    <link rel="prev" title="This is a notes on machine learning" href="content.html" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="en" />
+
+
+
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
+    
+        <div class="navbar-brand-box">
+<a class="navbar-brand text-wrap" href="index.html">
+  
+  <img src="_static/logo.png" class="logo" alt="logo">
+  
+  
+  <h1 class="site-logo" id="site-title">Machine Learning Notes</h1>
+  
+</a>
+</div><form class="bd-search d-flex align-items-center" action="search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form>
+<nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
+    <ul class="nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="content.html">
+   This is a notes on machine learning
+  </a>
+ </li>
+</ul>
+<ul class="current nav sidenav_l1">
+ <li class="toctree-l1 current active">
+  <a class="current reference internal" href="#">
+   1. Introduction
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="02_linear_regression.html">
+   2. Linear Regression
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="03_logistic_regression.html">
+   3. Logistic Regression
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="04_generative_learning_algorithms.html">
+   4. Generative Learning Algorithms
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="05_kernel_method.html">
+   5. Kernel Method
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="06_decision_tree.html">
+   6. Decision Tree
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="07_ensemble_learning.html">
+   7. Ensemble Learning
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="08_xgboost &amp; ligthgbm.html">
+   8. XGBoost &amp; LightGBM
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="09_neural_network.html">
+   9. Neural Network
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="10_learning_theory.html">
+   10. Learning Theory
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="11_clustering.html">
+   11. Clustering
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="12_dimentionality_reduction.html">
+   12. Dimentionality Reduction
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="13_EM.html">
+   13. EM
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="14_HMM.html">
+   14. Hidden Markov Model
+  </a>
+ </li>
+</ul>
+
+</nav> <!-- To handle the deprecated key -->
+
+<div class="navbar_extra_footer">
+  Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+</div>
+
+</div>
+
+
+          
+
+
+          
+<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
+    
+    <div class="topbar container-xl fixed-top">
+    <div class="topbar-contents row">
+        <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show"></div>
+        <div class="col pl-md-4 topbar-main">
+            
+            <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
+                data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
+                aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
+                title="Toggle navigation" data-toggle="tooltip" data-placement="left">
+                <i class="fas fa-bars"></i>
+                <i class="fas fa-arrow-left"></i>
+                <i class="fas fa-arrow-up"></i>
+            </button>
+            
+            
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
+            class="fas fa-download"></i></button>
+
+    <div class="dropdown-buttons">
+        <!-- ipynb file if we had a myst markdown file -->
+        
+        <!-- Download raw file -->
+        <a class="dropdown-buttons" href="_sources/01_introduction.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
+                data-placement="left">.ipynb</button></a>
+        <!-- Download PDF via print -->
+        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
+            onClick="window.print()" data-toggle="tooltip" data-placement="left">.pdf</button>
+    </div>
+</div>
+
+            <!-- Source interaction buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Connect with source repository"><i class="fab fa-github"></i></button>
+    <div class="dropdown-buttons sourcebuttons">
+        <a class="repository-button"
+            href="https://github.com/executablebooks/jupyter-book"><button type="button" class="btn btn-secondary topbarbtn"
+                data-toggle="tooltip" data-placement="left" title="Source repository"><i
+                    class="fab fa-github"></i>repository</button></a>
+        <a class="issues-button"
+            href="https://github.com/executablebooks/jupyter-book/issues/new?title=Issue%20on%20page%20%2F01_introduction.html&body=Your%20issue%20content%20here."><button
+                type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip" data-placement="left"
+                title="Open an issue"><i class="fas fa-lightbulb"></i>open issue</button></a>
+        
+    </div>
+</div>
+
+
+            <!-- Full screen (wrap in <a> to have style consistency -->
+            <a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
+                    data-placement="bottom" onclick="toggleFullScreen()" aria-label="Fullscreen mode"
+                    title="Fullscreen mode"><i
+                        class="fas fa-expand"></i></button></a>
+
+            <!-- Launch buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
+    <div class="dropdown-buttons">
+        
+        <a class="binder-button" href="https://mybinder.org/v2/gh/executablebooks/jupyter-book/master?urlpath=tree/docs/01_introduction.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Launch Binder" data-toggle="tooltip"
+                data-placement="left"><img class="binder-button-logo"
+                    src="_static/images/logo_binder.svg"
+                    alt="Interact on binder">Binder</button></a>
+        
+        
+        
+        
+    </div>
+</div>
+
+        </div>
+
+        <!-- Table of contents -->
+        <div class="d-none d-md-block col-md-2 bd-toc show">
+            
+        <div class="tocsection onthispage pt-5 pb-3">
+            <i class="fas fa-list"></i>
+            Contents
+        </div>
+        <nav id="bd-toc-nav">
+            <ul class="nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#what-is-machine-learning">
+   1.1. What is machine learning
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#why-use-machine-learning">
+   1.2. Why use machine learning
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#examples-of-applications">
+   1.3. Examples of applications
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#types-of-machine-learning">
+   1.4. Types of machine learning
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#main-challenges-of-machine-learning">
+   1.5. Main challenges of machine learning
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#testing-and-validation">
+   1.6. Testing and Validation
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#k-fold-cross-validation">
+     1.6.1. k-fold cross validation
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#data-mismatch">
+     1.6.2. data mismatch
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#feature-selection">
+   1.7. feature selection
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#no-free-lunch-theorem">
+   1.8. no free lunch theorem
+  </a>
+ </li>
+</ul>
+
+        </nav>
+        
+        </div>
+    </div>
+</div>
+    <div id="main-content" class="row">
+        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+        
+              <div>
+                
+  <div class="section" id="introduction">
+<h1><span class="section-number">1. </span>Introduction<a class="headerlink" href="#introduction" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="what-is-machine-learning">
+<h2><span class="section-number">1.1. </span>What is machine learning<a class="headerlink" href="#what-is-machine-learning" title="Permalink to this headline">¶</a></h2>
+<p>Machine learning is the science (and art) of programming computers so they can <strong>learn from data.</strong></p>
+<p>A slightly more general definition by Arthur Samuel in 1959:</p>
+<p><strong>Field of study that gives computers the ability to learn without beging explicitly programmed.</strong></p>
+<p>Common definition by Tom Mitchell in 1988:</p>
+<p><strong>A computer program is said to learn from experience E with respect to some task T and some performace measure P, if its performance on T, as measured by P, improves with experience E.</strong></p>
+</div>
+<div class="section" id="why-use-machine-learning">
+<h2><span class="section-number">1.2. </span>Why use machine learning<a class="headerlink" href="#why-use-machine-learning" title="Permalink to this headline">¶</a></h2>
+<p>machine learning especially shines in these four fields:</p>
+<ol class="simple">
+<li><p>problems for which existing solutions require a lot of fine-tuning or long lists of rules, e.g spam-filter.</p></li>
+<li><p>complex problems for which using a traditional approach yields no good solution, e.g speech-recognition.</p></li>
+<li><p>a machine learning system can adapt to new data.</p></li>
+<li><p>getting insights about complex problems and large amounts of data.</p></li>
+</ol>
+</div>
+<div class="section" id="examples-of-applications">
+<h2><span class="section-number">1.3. </span>Examples of applications<a class="headerlink" href="#examples-of-applications" title="Permalink to this headline">¶</a></h2>
+<p>Basic machine learning:</p>
+<ol class="simple">
+<li><p>basic regression</p></li>
+<li><p>basic classification</p></li>
+<li><p>dimension reduction &amp; visualization</p></li>
+<li><p>clustering</p></li>
+<li><p>anomaly detection</p></li>
+</ol>
+<p>Computer vision:</p>
+<ol class="simple">
+<li><p>image classification, typically use CNNs.</p></li>
+<li><p>semantic segmentation, e.g detecting tumors in scan, use CNNs.</p></li>
+</ol>
+<p>Natural Language Processing:</p>
+<ol class="simple">
+<li><p>text classification(include text sentiment analysis), typically use RNNs, Transformers.</p></li>
+<li><p>text summerization, use RNNS, Transformers.</p></li>
+<li><p>chatbot or personal assistant, this involves many NLP components, including NLU and question answering.</p></li>
+<li><p>speech recognition</p></li>
+</ol>
+<p>Recommender System</p>
+<p>Reinforcement Learning, e.g AlphaGo.</p>
+</div>
+<div class="section" id="types-of-machine-learning">
+<h2><span class="section-number">1.4. </span>Types of machine learning<a class="headerlink" href="#types-of-machine-learning" title="Permalink to this headline">¶</a></h2>
+<p>by whether or not they are trained with human supervision:</p>
+<p>supervised learning: the training set you feed to the algorithm includes the desired solutions, called labels.</p>
+<p>unsupervised learning: the training data is unlabeled.</p>
+<p>semi-supervised learning: can deal with data that’s partially labeled.</p>
+<p>reinforcement learning: the learning system called an agent can observe the evironment, select and perform actions, and get reward in return. it must learn by itself what is the best strategy, called policy, to get the most reward over time.</p>
+<p>by whether or not they can learn incrementally on the fly (online versus batch learning)</p>
+<p>by whether they work by simply comparing new data points to known data points (like KNN), or instead by detecting patterns in the training data and build a predictive model. (instance-based versus model-based learning)</p>
+</div>
+<div class="section" id="main-challenges-of-machine-learning">
+<h2><span class="section-number">1.5. </span>Main challenges of machine learning<a class="headerlink" href="#main-challenges-of-machine-learning" title="Permalink to this headline">¶</a></h2>
+<p>“bad data” aspect:</p>
+<p>insufficient quantity of training data.</p>
+<p>nonrepresentative training data.</p>
+<p>poor-quality data.</p>
+<p>irrelevant features.</p>
+<p>“bad algorithm” aspect:</p>
+<p>overfitting: model performs well on the training data, but it does not generalize well.</p>
+<p>underfitting: model is too simple to learn the underlying structure of the data.</p>
+</div>
+<div class="section" id="testing-and-validation">
+<h2><span class="section-number">1.6. </span>Testing and Validation<a class="headerlink" href="#testing-and-validation" title="Permalink to this headline">¶</a></h2>
+<p>the error rate on new cases is called the generalization error.</p>
+<p>we split data into training set and test set, train the model using training set, test it using test set (use error on test set to estimate generalization error).</p>
+<p>in hyperparameter tuning and model selection, once we use test set to select models, then test error can not be use to estimate generalization error.</p>
+<p><strong>because you adapted the model and hyperparameters to produce the best models for that particular set.</strong></p>
+<p>a common solution is called hold-out validation: hold out part of training set to evaluate several candidate models, after picking the best model, we typically retrain that best-model using the whole training set.</p>
+<p>suppose we want to choose a model from <span class="math notranslate nohighlight">\(\mathcal{M} = \left\{M_{1},...,M_{d}\right\}\)</span>.</p>
+<p>hold-out validation:</p>
+<ol class="simple">
+<li><p>randomly split dataset <span class="math notranslate nohighlight">\(S\)</span> into <span class="math notranslate nohighlight">\(S_{train}\)</span> (say 70% of the data) and <span class="math notranslate nohighlight">\(S_{val}\)</span> (say 30% of the data).</p></li>
+<li><p>train each model <span class="math notranslate nohighlight">\(M_{i}\)</span> on <span class="math notranslate nohighlight">\(S_{train}\)</span> only, get <span class="math notranslate nohighlight">\(h_{i}\)</span>.</p></li>
+<li><p>use <span class="math notranslate nohighlight">\(h_{i}\)</span> to compute error on <span class="math notranslate nohighlight">\(S_{val}\)</span>, choose the corresponding model that minimize this error.</p></li>
+</ol>
+<p>problems: wastes <span class="math notranslate nohighlight">\(S_{val}\)</span> data, only evaluate on <span class="math notranslate nohighlight">\(S_{val}\)</span> may add bias.</p>
+<div class="section" id="k-fold-cross-validation">
+<h3><span class="section-number">1.6.1. </span>k-fold cross validation<a class="headerlink" href="#k-fold-cross-validation" title="Permalink to this headline">¶</a></h3>
+<p>one solution of these problems is k-fold cross validation:</p>
+<ol class="simple">
+<li><p>randomly split <span class="math notranslate nohighlight">\(S\)</span> into k even disjoint subsets <span class="math notranslate nohighlight">\(S_{1},...,S_{k}\)</span>.</p></li>
+<li><p>for each model <span class="math notranslate nohighlight">\(M_{i}\)</span><br>
+<span class="math notranslate nohighlight">\(\quad\)</span> for <span class="math notranslate nohighlight">\(j=1,...,k\)</span>, train on all data except <span class="math notranslate nohighlight">\(S_{j}\)</span> to get hypothesis <span class="math notranslate nohighlight">\(h_{ij}\)</span><br>
+<span class="math notranslate nohighlight">\(\quad\)</span> test <span class="math notranslate nohighlight">\(h_{ij}\)</span> on <span class="math notranslate nohighlight">\(S_{j}\)</span> to get <span class="math notranslate nohighlight">\(\hat\epsilon_{S_{j}}(h_{ij})\)</span><br>
+estimate generalization error on <span class="math notranslate nohighlight">\(M_{i}\)</span> as <span class="math notranslate nohighlight">\(\sum_{j=1}^{k}\hat\epsilon_{S_{j}}(h_{ij})\)</span>.</p></li>
+<li><p>choose the model that minimize the estimated generalization error.</p></li>
+</ol>
+<p><span class="math notranslate nohighlight">\(k=10\)</span> is a commonly used choice.</p>
+<p>disadvantage: computationally expensive.</p>
+</div>
+<div class="section" id="data-mismatch">
+<h3><span class="section-number">1.6.2. </span>data mismatch<a class="headerlink" href="#data-mismatch" title="Permalink to this headline">¶</a></h3>
+<p>in some cases, it’s easy to get a large amount of data for training, but this data won’t be perfectly representative of the data in production.</p>
+<p>in this case, the most important rule is that validation set and test set must be as representative as possible.</p>
+<p>typically, mismatch data is separated into train set and train-dev set. we first train the model no train set, then evaluate model on train-dev set.</p>
+<p>when <span class="math notranslate nohighlight">\(P(validation) &lt;&lt; P(train)\)</span></p>
+<p><span class="math notranslate nohighlight">\(\quad\)</span>if <span class="math notranslate nohighlight">\(P(train\_dev) &lt;&lt; P(train):\)</span></p>
+<p><span class="math notranslate nohighlight">\(\quad\quad\)</span>overfitting is a cause</p>
+<p><span class="math notranslate nohighlight">\(\quad\)</span>elif <span class="math notranslate nohighlight">\(P(train\_dev) \approx P(train):\)</span></p>
+<p><span class="math notranslate nohighlight">\(\quad\quad\)</span>cause is data mismatch</p>
+</div>
+</div>
+<div class="section" id="feature-selection">
+<h2><span class="section-number">1.7. </span>feature selection<a class="headerlink" href="#feature-selection" title="Permalink to this headline">¶</a></h2>
+<p>we can use validation to select features.</p>
+<p>foward search:</p>
+<ol class="simple">
+<li><p>initialize <span class="math notranslate nohighlight">\(\mathcal{F} = \emptyset\)</span></p></li>
+<li><p>repeatedly:<br>
+<span class="math notranslate nohighlight">\(\quad\)</span>add each un-included feature to <span class="math notranslate nohighlight">\(\mathcal{F}\)</span>, then use cross validation to pick the best feature, add this best feature to <span class="math notranslate nohighlight">\(\mathcal{F}\)</span>.</p></li>
+<li><p>end until <span class="math notranslate nohighlight">\(\mathcal{F}\)</span> include all features.</p></li>
+</ol>
+<p>disadvantage: computationally expensive.</p>
+<p>other heuristic filter feature selection:</p>
+<p>compute correlation between <span class="math notranslate nohighlight">\(X_{i}\)</span> and <span class="math notranslate nohighlight">\(Y\)</span>, then pick <span class="math notranslate nohighlight">\(k\)</span> most correlated features.</p>
+<div class="math notranslate nohighlight">
+\[r(X, Y) = \frac{Cov(X,Y)}{\sqrt{Var(X)Var(Y)}}\]</div>
+<p>in practice, we commonly replace correlation with  mutual-information.</p>
+<div class="math notranslate nohighlight">
+\[I(X, Y) = \sum_{x \in \mathcal{X}}\sum_{y \in \mathcal{Y}}p(x,y)log\frac{p(x, y)}{p(x)p(y)} = H(X) - H(X|Y) = H(Y) - H(Y|X)\]</div>
+<p>if <span class="math notranslate nohighlight">\(X, Y\)</span> are independent, <span class="math notranslate nohighlight">\(I(X,Y)=0\)</span>.</p>
+</div>
+<div class="section" id="no-free-lunch-theorem">
+<h2><span class="section-number">1.8. </span>no free lunch theorem<a class="headerlink" href="#no-free-lunch-theorem" title="Permalink to this headline">¶</a></h2>
+<p><strong>demonstrate that if you make absolutely no assumption about the data, then there is no reason to prefer one model over any other.</strong></p>
+</div>
+</div>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            kernelName: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+              </div>
+              
+        
+        <div class='prev-next-bottom'>
+            
+    <a class='left-prev' id="prev-link" href="content.html" title="previous page">This is a notes on machine learning</a>
+    <a class='right-next' id="next-link" href="02_linear_regression.html" title="next page"><span class="section-number">2. </span>Linear Regression</a>
+
+        </div>
+        
+        </div>
+    </div>
+    <footer class="footer mt-5 mt-md-0">
+    <div class="container">
+      <p>
+        
+          By newfacade<br/>
+        
+            &copy; Copyright 2020.<br/>
+      </p>
+    </div>
+  </footer>
+</main>
+
+
+      </div>
+    </div>
+
+    
+  <script src="_static/js/index.d3f166471bb80abb5163.js"></script>
+
+
+    
+  </body>
+</html>
