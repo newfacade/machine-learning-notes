@@ -1,0 +1,589 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>9. Neural Network &#8212; Machine Learning Notes</title>
+    
+  <link rel="stylesheet" href="_static/css/index.f658d18f9b420779cfdf24aa0a7e2d77.css">
+
+    
+  <link rel="stylesheet"
+    href="_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    
+      
+  <link rel="stylesheet"
+    href="_static/vendor/open-sans_all/1.44.1/index.css">
+  <link rel="stylesheet"
+    href="_static/vendor/lato_latin-ext/1.44.1/index.css">
+
+    
+    <link rel="stylesheet" href="_static/sphinx-book-theme.e7340bb3dbd8dde6db86f25597f54a1b.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
+    <link rel="stylesheet" type="text/css" href="_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+    
+  <link rel="preload" as="script" href="_static/js/index.d3f166471bb80abb5163.js">
+
+    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/language_data.js"></script>
+    <script src="_static/togglebutton.js"></script>
+    <script src="_static/clipboard.min.js"></script>
+    <script src="_static/copybutton.js"></script>
+    <script >var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="_static/sphinx-book-theme.7d483ff0a819d6edff12ce0b1ead3928.js"></script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["\\(", "\\)"]], "displayMath": [["\\[", "\\]"]], "processRefs": false, "processEnvironments": false}})</script>
+    <script async="async" src="https://unpkg.com/thebelab@latest/lib/index.js"></script>
+    <script >
+        const thebe_selector = ".thebe"
+        const thebe_selector_input = "pre"
+        const thebe_selector_output = ".output"
+    </script>
+    <script async="async" src="_static/sphinx-thebe.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="10. Learning Theory" href="10_learning_theory.html" />
+    <link rel="prev" title="8. XGBoost &amp; LightGBM" href="08_xgboost &amp; ligthgbm.html" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="en" />
+
+
+
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
+    
+        <div class="navbar-brand-box">
+<a class="navbar-brand text-wrap" href="index.html">
+  
+  <img src="_static/logo.png" class="logo" alt="logo">
+  
+  
+  <h1 class="site-logo" id="site-title">Machine Learning Notes</h1>
+  
+</a>
+</div><form class="bd-search d-flex align-items-center" action="search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form>
+<nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
+    <ul class="nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="content.html">
+   This is a notes on machine learning
+  </a>
+ </li>
+</ul>
+<ul class="current nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="01_introduction.html">
+   1. Introduction
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="02_linear_regression.html">
+   2. Linear Regression
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="03_logistic_regression.html">
+   3. Logistic Regression
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="04_generative_learning_algorithms.html">
+   4. Generative Learning Algorithms
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="05_kernel_method.html">
+   5. Kernel Method
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="06_decision_tree.html">
+   6. Decision Tree
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="07_ensemble_learning.html">
+   7. Ensemble Learning
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="08_xgboost &amp; ligthgbm.html">
+   8. XGBoost &amp; LightGBM
+  </a>
+ </li>
+ <li class="toctree-l1 current active">
+  <a class="current reference internal" href="#">
+   9. Neural Network
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="10_learning_theory.html">
+   10. Learning Theory
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="11_clustering.html">
+   11. Clustering
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="12_dimentionality_reduction.html">
+   12. Dimentionality Reduction
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="13_EM.html">
+   13. EM
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="14_HMM.html">
+   14. Hidden Markov Model
+  </a>
+ </li>
+</ul>
+
+</nav> <!-- To handle the deprecated key -->
+
+<div class="navbar_extra_footer">
+  Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+</div>
+
+</div>
+
+
+          
+
+
+          
+<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
+    
+    <div class="topbar container-xl fixed-top">
+    <div class="topbar-contents row">
+        <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show"></div>
+        <div class="col pl-md-4 topbar-main">
+            
+            <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
+                data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
+                aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
+                title="Toggle navigation" data-toggle="tooltip" data-placement="left">
+                <i class="fas fa-bars"></i>
+                <i class="fas fa-arrow-left"></i>
+                <i class="fas fa-arrow-up"></i>
+            </button>
+            
+            
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
+            class="fas fa-download"></i></button>
+
+    <div class="dropdown-buttons">
+        <!-- ipynb file if we had a myst markdown file -->
+        
+        <!-- Download raw file -->
+        <a class="dropdown-buttons" href="_sources/09_neural_network.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
+                data-placement="left">.ipynb</button></a>
+        <!-- Download PDF via print -->
+        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
+            onClick="window.print()" data-toggle="tooltip" data-placement="left">.pdf</button>
+    </div>
+</div>
+
+            <!-- Source interaction buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Connect with source repository"><i class="fab fa-github"></i></button>
+    <div class="dropdown-buttons sourcebuttons">
+        <a class="repository-button"
+            href="https://github.com/executablebooks/jupyter-book"><button type="button" class="btn btn-secondary topbarbtn"
+                data-toggle="tooltip" data-placement="left" title="Source repository"><i
+                    class="fab fa-github"></i>repository</button></a>
+        <a class="issues-button"
+            href="https://github.com/executablebooks/jupyter-book/issues/new?title=Issue%20on%20page%20%2F09_neural_network.html&body=Your%20issue%20content%20here."><button
+                type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip" data-placement="left"
+                title="Open an issue"><i class="fas fa-lightbulb"></i>open issue</button></a>
+        
+    </div>
+</div>
+
+
+            <!-- Full screen (wrap in <a> to have style consistency -->
+            <a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
+                    data-placement="bottom" onclick="toggleFullScreen()" aria-label="Fullscreen mode"
+                    title="Fullscreen mode"><i
+                        class="fas fa-expand"></i></button></a>
+
+            <!-- Launch buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
+    <div class="dropdown-buttons">
+        
+        <a class="binder-button" href="https://mybinder.org/v2/gh/executablebooks/jupyter-book/master?urlpath=tree/docs/09_neural_network.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Launch Binder" data-toggle="tooltip"
+                data-placement="left"><img class="binder-button-logo"
+                    src="_static/images/logo_binder.svg"
+                    alt="Interact on binder">Binder</button></a>
+        
+        
+        
+        
+    </div>
+</div>
+
+        </div>
+
+        <!-- Table of contents -->
+        <div class="d-none d-md-block col-md-2 bd-toc show">
+            
+        <div class="tocsection onthispage pt-5 pb-3">
+            <i class="fas fa-list"></i>
+            Contents
+        </div>
+        <nav id="bd-toc-nav">
+            <ul class="nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#neuron">
+   9.1. neuron
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id1">
+   9.2. neural network
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#weight-decay">
+   9.3. weight decay
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#dropout">
+   9.4. dropout
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#prerequesities-for-back-propagation">
+   9.5. prerequesities for back-propagation
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#back-propagation">
+   9.6. back-propagation
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#xavier-initialization">
+   9.7. xavier initialization
+  </a>
+ </li>
+</ul>
+
+        </nav>
+        
+        </div>
+    </div>
+</div>
+    <div id="main-content" class="row">
+        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+        
+              <div>
+                
+  <div class="section" id="neural-network">
+<h1><span class="section-number">9. </span>Neural Network<a class="headerlink" href="#neural-network" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="neuron">
+<h2><span class="section-number">9.1. </span>neuron<a class="headerlink" href="#neuron" title="Permalink to this headline">¶</a></h2>
+<p>a neuron takes input <span class="math notranslate nohighlight">\(x \in \mathbb{R}^{d}\)</span>, multiply <span class="math notranslate nohighlight">\(x\)</span> by weights <span class="math notranslate nohighlight">\(w\)</span> and add bias term <span class="math notranslate nohighlight">\(b\)</span>, finally use a activation function <span class="math notranslate nohighlight">\(g\)</span>.</p>
+<p>that is:</p>
+<div class="math notranslate nohighlight">
+\[f(x) = g(w^{T}x + b)\]</div>
+<p>it is analogous to the functionality of biological neuron.</p>
+<p><img alt="jupyter" src="_images/neuron.svg" /></p>
+<p>some useful activation function:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{equation}
+\begin{split}
+\text{sigmoid:}\quad &amp;g(z) = \frac{1}{1 + e^{-z}} \\
+\text{tanh:}\quad &amp;g(z) = \frac{e^{z}-e^{-z}}{e^{z} + e^{-z}} \\
+\text{relu:}\quad &amp;g(z) = max(z,0) \\
+\text{leaky relu:}\quad &amp;g(z) = max(z, \epsilon{z})\ ,\ \epsilon\text{ is a small positive number}\\
+\text{identity:}\quad &amp;g(z) = z
+\end{split}
+\end{equation}
+\end{split}\]</div>
+<p>linear regression’s forward process is a neuron with identity activation function.</p>
+<p>logistic regression’s forward process is a neuron with sigmoid activation function.</p>
+</div>
+<div class="section" id="id1">
+<h2><span class="section-number">9.2. </span>neural network<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
+<p>building neural network is analogous to lego bricks: you take individual bricks and stack them together to build complex structures.</p>
+<p><img alt="jupyter" src="_images/mlp.svg" /></p>
+<p>we use bracket to denote layer, we take the above as example</p>
+<p><span class="math notranslate nohighlight">\([0]\)</span> denote input layer, <span class="math notranslate nohighlight">\([1]\)</span> denote hidden layer, <span class="math notranslate nohighlight">\([2]\)</span> denote output layer</p>
+<p><span class="math notranslate nohighlight">\(a^{[l]}\)</span> denote the output of layer <span class="math notranslate nohighlight">\(l\)</span>, set <span class="math notranslate nohighlight">\(a^{[0]} := x\)</span></p>
+<p><span class="math notranslate nohighlight">\(z^{[l]}\)</span> denote the affine result of layer <span class="math notranslate nohighlight">\(l\)</span></p>
+<p>we have:</p>
+<div class="math notranslate nohighlight">
+\[z^{[l]} = W^{[l]}a^{[l-1]} + b^{[l]}\]</div>
+<div class="math notranslate nohighlight">
+\[a^{[l]} = g^{[l]}(z^{[l]})\]</div>
+<p>where <span class="math notranslate nohighlight">\(W^{[l]} \in \mathbb{R}^{d[l] \times d[l-1]}\)</span>, <span class="math notranslate nohighlight">\(b^{[l]} \in \mathbb{R}^{d[l]}\)</span>.</p>
+</div>
+<div class="section" id="weight-decay">
+<h2><span class="section-number">9.3. </span>weight decay<a class="headerlink" href="#weight-decay" title="Permalink to this headline">¶</a></h2>
+<p>recall that to mitigate overfitting, we use <span class="math notranslate nohighlight">\(l_{2}\)</span> and <span class="math notranslate nohighlight">\(l_{1}\)</span> regularization in linear and logistic regression.</p>
+<p>weight decay is a alias of <span class="math notranslate nohighlight">\(l_{2}\)</span> regularization, can be generalize to neural network, we concatenate <span class="math notranslate nohighlight">\(W^{[l]}\)</span> and flatten it to get <span class="math notranslate nohighlight">\(w\)</span> in this setting.</p>
+<p>first adding <span class="math notranslate nohighlight">\(l_{2}\)</span> norm penalty:</p>
+<div class="math notranslate nohighlight">
+\[J(w,b) = \sum_{i=1}^{n}l(w, b, x^{(i)}, y^{(i)}) + \frac{\lambda}{2}\left \|  w \right \|^{2} \]</div>
+<p>then by gradient descent, we have:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{equation}
+\begin{split}
+w:=&amp; w-\eta\frac{\partial}{\partial w}J(w, b) \\
+=&amp; w-\eta\frac{\partial}{\partial w}\left(\sum_{i=1}^{n}l(w, b, x^{(i)}, y^{(i)}) + \frac{\lambda}{2}\left \|  w \right \|^{2}\right) \\
+=&amp; (1 - \eta\lambda)w - \eta\frac{\partial}{\partial w}\sum_{i=1}^{n}l(w, b, x^{(i)}, y^{(i)})
+\end{split}
+\end{equation}
+\end{split}\]</div>
+<p>multiply by <span class="math notranslate nohighlight">\((1 - \eta\lambda)\)</span> is weight decay.</p>
+<p>often we do not calculate bias term in regularization, so does weight decay.</p>
+</div>
+<div class="section" id="dropout">
+<h2><span class="section-number">9.4. </span>dropout<a class="headerlink" href="#dropout" title="Permalink to this headline">¶</a></h2>
+<p>to strength robustness through perturbation, we can deliberately add perturbation in traning, dropout is one of that skill.</p>
+<p>we actually do the following in hidden neuron:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+a_{dropout} = 
+\begin{cases}
+0 &amp;\text{with probability }p \\
+\frac{a}{1-p} &amp;\text{otherwise}
+\end{cases}
+\end{split}\]</div>
+<p>this operation randomly dropout neuron with probability <span class="math notranslate nohighlight">\(p\)</span> and keep the expectation unchanged:</p>
+<div class="math notranslate nohighlight">
+\[E(a_{dropout}) = E(a)\]</div>
+<p>depict this process below:</p>
+<p><img alt="jupyter" src="_images/dropout2.svg" /></p>
+<p>one more thing: we do not use dropout in predicting.</p>
+</div>
+<div class="section" id="prerequesities-for-back-propagation">
+<h2><span class="section-number">9.5. </span>prerequesities for back-propagation<a class="headerlink" href="#prerequesities-for-back-propagation" title="Permalink to this headline">¶</a></h2>
+<p>suppose in forward-propagation <span class="math notranslate nohighlight">\(x \to y \to l\)</span>, where <span class="math notranslate nohighlight">\(x \in \mathbb{R}^{n}\)</span>, <span class="math notranslate nohighlight">\(y \in \mathbb{R} ^{m}\)</span>, loss <span class="math notranslate nohighlight">\(l \in \mathbb{R}\)</span>.</p>
+<p>then:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\frac{\partial l}{\partial y} = \begin{bmatrix}
+ \frac{\partial l}{\partial y_{1}} \\
+ ...\\
+ \frac{\partial l}{\partial y_{m}}
+\end{bmatrix}
+\quad
+\frac{\partial l}{\partial x} = \begin{bmatrix}
+ \frac{\partial l}{\partial x_{1}} \\
+ ...\\
+ \frac{\partial l}{\partial x_{n}}
+\end{bmatrix}
+\end{split}\]</div>
+<p>by total differential equation:</p>
+<div class="math notranslate nohighlight">
+\[
+\frac{\partial l}{\partial x_{k}} = \sum_{j=1}^{m}\frac{\partial l}{\partial y_{j}}\frac{\partial y_{j}}{\partial x_{k}}
+\]</div>
+<p>then we can connect <span class="math notranslate nohighlight">\(\frac{\partial l}{\partial x}\)</span> and <span class="math notranslate nohighlight">\(\frac{\partial l}{\partial y}\)</span> by:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\frac{\partial l}{\partial x} = \begin{bmatrix}
+ \frac{\partial l}{\partial x_{1}} \\
+ ...\\
+ \frac{\partial l}{\partial x_{n}}
+\end{bmatrix}
+=
+\begin{bmatrix}
+ \frac{\partial y_{1}}{\partial x_{1}} &amp; ... &amp; \frac{\partial y_{m}}{\partial x_{1}}\\
+ \vdots  &amp; \ddots  &amp; \vdots \\
+  \frac{\partial y_{1}}{\partial x_{n}}&amp; .... &amp; \frac{\partial y_{m}}{\partial x_{n}}
+\end{bmatrix}
+\begin{bmatrix}
+ \frac{\partial l}{\partial y_{1}} \\
+ ...\\
+ \frac{\partial l}{\partial y_{m}}
+\end{bmatrix}
+=
+(\frac{\partial y}{\partial x})^{T}\frac{\partial l}{\partial y}
+\end{split}\]</div>
+<p>here <span class="math notranslate nohighlight">\(\frac{\partial y}{\partial x}\)</span> is the jacobian matrix.</p>
+<p>unlike other activation functions, calculate softmax depend on other neurons, so jacobian of softmax.</p>
+<div class="math notranslate nohighlight">
+\[
+\frac{\partial a_{i}}{\partial z_{j}} = \frac{\partial}{\partial z_{j}}\left(\frac{exp(z_{i})}{\sum_{s=1}^{k}exp(z_{s})}\right)
+\]</div>
+<p>it is easy to check the jacobian of matrix-multiplication:</p>
+<div class="math notranslate nohighlight">
+\[\frac{\partial Mx}{\partial x} = M\]</div>
+</div>
+<div class="section" id="back-propagation">
+<h2><span class="section-number">9.6. </span>back-propagation<a class="headerlink" href="#back-propagation" title="Permalink to this headline">¶</a></h2>
+<p>gradient descent update rule:</p>
+<div class="math notranslate nohighlight">
+\[W^{[l]} = W^{[l]} - \alpha\frac{\partial{L}}{\partial{W^{[l]}}}\]</div>
+<div class="math notranslate nohighlight">
+\[b^{[l]} = b^{[l]} - \alpha\frac{\partial{L}}{\partial{b^{[l]}}}\]</div>
+<p>to proceed, we must compute the gradient with respect to the parameters.</p>
+<p>we can define a three-step recipe for computing the gradients as follows:</p>
+<p>1.for output layer, we have:</p>
+<div class="math notranslate nohighlight">
+\[
+\frac{\partial L(\hat{y}, y)}{\partial z^{[N]}} = (\frac{\partial \hat{y}}{\partial z^{[N]}})^{T}\frac{\partial L(\hat{y}, y)}{\partial \hat{y}}
+\]</div>
+<p>if <span class="math notranslate nohighlight">\(g^{[N]}\)</span> is softmax.</p>
+<div class="math notranslate nohighlight">
+\[
+\frac{\partial L(\hat{y}, y)}{\partial z^{[N]}} = \frac{\partial L(\hat{y}, y)}{\partial \hat{y}} \odot {g^{[N]}}'(z^{[N]})
+\]</div>
+<p>if not softmax.</p>
+<p>the above computations are all straight forward.</p>
+<p>2.for <span class="math notranslate nohighlight">\(l=N-1,...,1\)</span>, we have:</p>
+<div class="math notranslate nohighlight">
+\[z^{[l + 1]} = W^{[l + 1]}a^{[l]} + b^{[l + 1]}\]</div>
+<p>so by our prerequesities:</p>
+<div class="math notranslate nohighlight">
+\[
+\frac{\partial L}{\partial a^{[l]}} = (\frac{\partial z^{[l+1]}}{\partial a^{[l]}})^{T}\frac{\partial L}{\partial z^{[l+1]}} = (W^{[l+1]})^{T}\frac{\partial L}{\partial z^{[l+1]}}
+\]</div>
+<p>we also have:</p>
+<div class="math notranslate nohighlight">
+\[a^{[l]} = g^{[l]}z^{[l]}\]</div>
+<p>we do not use softmax activation in hidden layers, so the dependent is direct:</p>
+<div class="math notranslate nohighlight">
+\[\frac{\partial L}{\partial z^{[l]}} = \frac{\partial L}{\partial a^{[l]}} \odot {g^{[l]}}'(z^{[l]})\]</div>
+<p>combine two equations:</p>
+<div class="math notranslate nohighlight">
+\[\frac{\partial L}{\partial z^{[l]}} = (W^{[l+1]})^{T}\frac{\partial L}{\partial z^{[l+1]}} \odot {g^{[l]}}'(z^{[l]})\]</div>
+<p>3.final step, because:</p>
+<div class="math notranslate nohighlight">
+\[z^{[l]} = W^{[l]}a^{[l - 1]} + b^{[l]}\]</div>
+<p>so:</p>
+<div class="math notranslate nohighlight">
+\[\frac{\partial L}{\partial W^{[l]}} = \frac{\partial L}{\partial z^{[l]}}(a^{[l - 1]})^{T}\]</div>
+<div class="math notranslate nohighlight">
+\[\frac{\partial L}{\partial b^{[l]}}=\frac{\partial L}{\partial z^{[l]}}\]</div>
+</div>
+<div class="section" id="xavier-initialization">
+<h2><span class="section-number">9.7. </span>xavier initialization<a class="headerlink" href="#xavier-initialization" title="Permalink to this headline">¶</a></h2>
+<p>to mitigate vanishing and exploding gradient, to insure breaking symmtry, we should carefully initialize weights.</p>
+<p>consider a fully connected layer without bias term and activation function:</p>
+<div class="math notranslate nohighlight">
+\[o_{i} = \sum_{j=1}^{n_{in}}w_{ij}x_{j}\]</div>
+<p>suppose <span class="math notranslate nohighlight">\(w_{ij}\)</span> draw from a distribution of 0 mean and <span class="math notranslate nohighlight">\(\sigma^{2}\)</span> variance, not necessarily guassian.</p>
+<p>suppose <span class="math notranslate nohighlight">\(x_{j}\)</span> draw from a distribution of 0 mean and <span class="math notranslate nohighlight">\(\gamma^{2}\)</span> variance, all <span class="math notranslate nohighlight">\(w_{ij}, x_{j}\)</span> are independent.</p>
+<p>then mean of <span class="math notranslate nohighlight">\(o_{i}\)</span> is of course 0, variance:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{equation}
+\begin{split}
+Var[o_{i}] =&amp; E[o_{i}^{2}] - (E[o_{i}])^{2}\\
+=&amp;\sum_{j=1}^{n_{in}}E[w_{ij}^{2}x_{j}^{2}] \\
+=&amp;\sum_{j=1}^{n_{in}}E[w_{ij}^{2}]E[x_{j}^{2}] \\
+=&amp;n_{in}\sigma^{2}\gamma^{2}
+\end{split}
+\end{equation}
+\end{split}\]</div>
+<p>to keep variance fixed, we need to set <span class="math notranslate nohighlight">\(n_{in}\sigma^{2}=1\)</span>.</p>
+<p>consider back-propagation, we have:</p>
+<div class="math notranslate nohighlight">
+\[\frac{\partial L}{\partial x_{j}} = \sum_{i=1}^{n_{out}}w_{ij}\frac{\partial L}{\partial o_{i}}\]</div>
+<p>so by the same inference, we need to set $<span class="math notranslate nohighlight">\(n_{out}\sigma^{2} = 1\)</span>$.</p>
+<p>we cannot satisfy both conditions simutaneously, we simply try to satisfy:</p>
+<div class="math notranslate nohighlight">
+\[\frac{1}{2}(n_{in} + n_{out})\sigma^{2} = 1 \ \text{ or }\ \sigma = \sqrt{\frac{n_{in} + n_{out}}{2}}\]</div>
+<p>this is the reasoning under xavier initialization.</p>
+</div>
+</div>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            kernelName: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+              </div>
+              
+        
+        <div class='prev-next-bottom'>
+            
+    <a class='left-prev' id="prev-link" href="08_xgboost &amp; ligthgbm.html" title="previous page"><span class="section-number">8. </span>XGBoost &amp; LightGBM</a>
+    <a class='right-next' id="next-link" href="10_learning_theory.html" title="next page"><span class="section-number">10. </span>Learning Theory</a>
+
+        </div>
+        
+        </div>
+    </div>
+    <footer class="footer mt-5 mt-md-0">
+    <div class="container">
+      <p>
+        
+          By newfacade<br/>
+        
+            &copy; Copyright 2020.<br/>
+      </p>
+    </div>
+  </footer>
+</main>
+
+
+      </div>
+    </div>
+
+    
+  <script src="_static/js/index.d3f166471bb80abb5163.js"></script>
+
+
+    
+  </body>
+</html>

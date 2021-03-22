@@ -1,0 +1,576 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>4. Generative Learning Algorithms &#8212; Machine Learning Notes</title>
+    
+  <link rel="stylesheet" href="_static/css/index.f658d18f9b420779cfdf24aa0a7e2d77.css">
+
+    
+  <link rel="stylesheet"
+    href="_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    
+      
+  <link rel="stylesheet"
+    href="_static/vendor/open-sans_all/1.44.1/index.css">
+  <link rel="stylesheet"
+    href="_static/vendor/lato_latin-ext/1.44.1/index.css">
+
+    
+    <link rel="stylesheet" href="_static/sphinx-book-theme.e7340bb3dbd8dde6db86f25597f54a1b.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
+    <link rel="stylesheet" type="text/css" href="_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+    
+  <link rel="preload" as="script" href="_static/js/index.d3f166471bb80abb5163.js">
+
+    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/language_data.js"></script>
+    <script src="_static/togglebutton.js"></script>
+    <script src="_static/clipboard.min.js"></script>
+    <script src="_static/copybutton.js"></script>
+    <script >var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="_static/sphinx-book-theme.7d483ff0a819d6edff12ce0b1ead3928.js"></script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["\\(", "\\)"]], "displayMath": [["\\[", "\\]"]], "processRefs": false, "processEnvironments": false}})</script>
+    <script async="async" src="https://unpkg.com/thebelab@latest/lib/index.js"></script>
+    <script >
+        const thebe_selector = ".thebe"
+        const thebe_selector_input = "pre"
+        const thebe_selector_output = ".output"
+    </script>
+    <script async="async" src="_static/sphinx-thebe.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="5. Kernel Method" href="05_kernel_method.html" />
+    <link rel="prev" title="3. Logistic Regression" href="03_logistic_regression.html" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="en" />
+
+
+
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
+    
+        <div class="navbar-brand-box">
+<a class="navbar-brand text-wrap" href="index.html">
+  
+  <img src="_static/logo.png" class="logo" alt="logo">
+  
+  
+  <h1 class="site-logo" id="site-title">Machine Learning Notes</h1>
+  
+</a>
+</div><form class="bd-search d-flex align-items-center" action="search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form>
+<nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
+    <ul class="nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="content.html">
+   This is a notes on machine learning
+  </a>
+ </li>
+</ul>
+<ul class="current nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="01_introduction.html">
+   1. Introduction
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="02_linear_regression.html">
+   2. Linear Regression
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="03_logistic_regression.html">
+   3. Logistic Regression
+  </a>
+ </li>
+ <li class="toctree-l1 current active">
+  <a class="current reference internal" href="#">
+   4. Generative Learning Algorithms
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="05_kernel_method.html">
+   5. Kernel Method
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="06_decision_tree.html">
+   6. Decision Tree
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="07_ensemble_learning.html">
+   7. Ensemble Learning
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="08_xgboost &amp; ligthgbm.html">
+   8. XGBoost &amp; LightGBM
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="09_neural_network.html">
+   9. Neural Network
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="10_learning_theory.html">
+   10. Learning Theory
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="11_clustering.html">
+   11. Clustering
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="12_dimentionality_reduction.html">
+   12. Dimentionality Reduction
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="13_EM.html">
+   13. EM
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="14_HMM.html">
+   14. Hidden Markov Model
+  </a>
+ </li>
+</ul>
+
+</nav> <!-- To handle the deprecated key -->
+
+<div class="navbar_extra_footer">
+  Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+</div>
+
+</div>
+
+
+          
+
+
+          
+<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
+    
+    <div class="topbar container-xl fixed-top">
+    <div class="topbar-contents row">
+        <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show"></div>
+        <div class="col pl-md-4 topbar-main">
+            
+            <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
+                data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
+                aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
+                title="Toggle navigation" data-toggle="tooltip" data-placement="left">
+                <i class="fas fa-bars"></i>
+                <i class="fas fa-arrow-left"></i>
+                <i class="fas fa-arrow-up"></i>
+            </button>
+            
+            
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
+            class="fas fa-download"></i></button>
+
+    <div class="dropdown-buttons">
+        <!-- ipynb file if we had a myst markdown file -->
+        
+        <!-- Download raw file -->
+        <a class="dropdown-buttons" href="_sources/04_generative_learning_algorithms.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
+                data-placement="left">.ipynb</button></a>
+        <!-- Download PDF via print -->
+        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
+            onClick="window.print()" data-toggle="tooltip" data-placement="left">.pdf</button>
+    </div>
+</div>
+
+            <!-- Source interaction buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Connect with source repository"><i class="fab fa-github"></i></button>
+    <div class="dropdown-buttons sourcebuttons">
+        <a class="repository-button"
+            href="https://github.com/executablebooks/jupyter-book"><button type="button" class="btn btn-secondary topbarbtn"
+                data-toggle="tooltip" data-placement="left" title="Source repository"><i
+                    class="fab fa-github"></i>repository</button></a>
+        <a class="issues-button"
+            href="https://github.com/executablebooks/jupyter-book/issues/new?title=Issue%20on%20page%20%2F04_generative_learning_algorithms.html&body=Your%20issue%20content%20here."><button
+                type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip" data-placement="left"
+                title="Open an issue"><i class="fas fa-lightbulb"></i>open issue</button></a>
+        
+    </div>
+</div>
+
+
+            <!-- Full screen (wrap in <a> to have style consistency -->
+            <a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
+                    data-placement="bottom" onclick="toggleFullScreen()" aria-label="Fullscreen mode"
+                    title="Fullscreen mode"><i
+                        class="fas fa-expand"></i></button></a>
+
+            <!-- Launch buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
+    <div class="dropdown-buttons">
+        
+        <a class="binder-button" href="https://mybinder.org/v2/gh/executablebooks/jupyter-book/master?urlpath=tree/docs/04_generative_learning_algorithms.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Launch Binder" data-toggle="tooltip"
+                data-placement="left"><img class="binder-button-logo"
+                    src="_static/images/logo_binder.svg"
+                    alt="Interact on binder">Binder</button></a>
+        
+        
+        
+        
+    </div>
+</div>
+
+        </div>
+
+        <!-- Table of contents -->
+        <div class="d-none d-md-block col-md-2 bd-toc show">
+            
+        <div class="tocsection onthispage pt-5 pb-3">
+            <i class="fas fa-list"></i>
+            Contents
+        </div>
+        <nav id="bd-toc-nav">
+            <ul class="nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#discriminative-generative">
+   4.1. Discriminative &amp; Generative
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#guassian-discriminant-analysis-gda">
+   4.2. Guassian Discriminant Analysis(GDA)
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#gda-and-logistic-regression">
+   4.3. GDA and logistic regression
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#naive-bayes">
+   4.4. Naive Bayes
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#laplace-smoothing">
+   4.5. Laplace Smoothing
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#text-classification">
+   4.6. Text Classification
+  </a>
+ </li>
+</ul>
+
+        </nav>
+        
+        </div>
+    </div>
+</div>
+    <div id="main-content" class="row">
+        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+        
+              <div>
+                
+  <div class="section" id="generative-learning-algorithms">
+<h1><span class="section-number">4. </span>Generative Learning Algorithms<a class="headerlink" href="#generative-learning-algorithms" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="discriminative-generative">
+<h2><span class="section-number">4.1. </span>Discriminative &amp; Generative<a class="headerlink" href="#discriminative-generative" title="Permalink to this headline">¶</a></h2>
+<p>discriminative：try to learn <span class="math notranslate nohighlight">\(p(y|x)\)</span> directly, such as logistic regression<br>
+or try to learn mappings from the space of inputs to the labels <span class="math notranslate nohighlight">\(\left \{ 0, 1\right \}\)</span> directly, such as perceptron</p>
+<p>generative：algorithms that try to model <span class="math notranslate nohighlight">\(p(x|y)\)</span> and <span class="math notranslate nohighlight">\(p(y)\)</span>(called class prior), such as guassian discriminant analysis and naive bayes</p>
+<p>when predicting, use bayes rule：</p>
+<div class="math notranslate nohighlight">
+\[p(y|x)=\frac{p(x|y)p(y)}{p(x)}\]</div>
+<p>then：</p>
+<div class="math notranslate nohighlight">
+\[\hat{y}=\underset{y}{argmax}\ \frac{p(x|y)p(y)}{p(x)}= \underset{y}{argmax}\ {p(x|y)p(y)}\]</div>
+</div>
+<div class="section" id="guassian-discriminant-analysis-gda">
+<h2><span class="section-number">4.2. </span>Guassian Discriminant Analysis(GDA)<a class="headerlink" href="#guassian-discriminant-analysis-gda" title="Permalink to this headline">¶</a></h2>
+<p>multivariant normal distribution</p>
+<p>guassian distribution is parameterized by a mean vector <span class="math notranslate nohighlight">\(\mu \in \mathbb{R}^{d}\)</span> and a covariance matrix <span class="math notranslate nohighlight">\(\Sigma \in \mathbb{R}^{d \times d}\)</span>, where <span class="math notranslate nohighlight">\(\Sigma &gt;= 0\)</span> is symmetric and positive semi-definite. also written <span class="math notranslate nohighlight">\(\mathcal{N}(\mu,\Sigma)\)</span>, it’s density is given by：</p>
+<div class="math notranslate nohighlight">
+\[p(x;\mu,\Sigma)=\frac{1}{(2\pi)^{d/2}\left | \Sigma \right |^{1/2} }exp\left ( -\frac{1}{2}(x-\mu)^{T}{\Sigma}^{-1}(x-\mu)\right )\]</div>
+<p>unsurprisingly, for random variable <span class="math notranslate nohighlight">\(X \sim \mathcal{N}(\mu,\Sigma)\)</span>:</p>
+<div class="math notranslate nohighlight">
+\[E[X] = \int_{x}xp(x;\mu, \Sigma)dx = \mu\]</div>
+<div class="math notranslate nohighlight">
+\[Cov(X) = E[(X - E(X))(X - E(X))^{T}] = \Sigma\]</div>
+<p>GDA:</p>
+<p>when we have a classification problem in which the input features x are continous, we can use GDA, which model <span class="math notranslate nohighlight">\(p(x|y)\)</span> using a multivariant normal distribution:</p>
+<div class="math notranslate nohighlight">
+\[y\sim Bernoulli(\phi)\]</div>
+<div class="math notranslate nohighlight">
+\[x | y=0 \sim \mathcal{N}(\mu_{0},\Sigma) \]</div>
+<div class="math notranslate nohighlight">
+\[x | y=1 \sim \mathcal{N}(\mu_{1},\Sigma) \]</div>
+<p>writing out the distribution:</p>
+<div class="math notranslate nohighlight">
+\[p(y) = \phi^{y}(1 - \phi)^{1 - y}\]</div>
+<div class="math notranslate nohighlight">
+\[p(x| y=0)=\frac{1}{(2\pi)^{d/2}\left | \Sigma \right |^{1/2} }exp\left (-\frac{1}{2}(x-\mu_{0})^{T}{\Sigma}^{-1}(x-\mu_{0})\right )\]</div>
+<div class="math notranslate nohighlight">
+\[p(x| y=1)=\frac{1}{(2\pi)^{d/2}\left | \Sigma \right |^{1/2} }exp\left (-\frac{1}{2}(x-\mu_{1})^{T}{\Sigma}^{-1}(x-\mu_{1})\right )\]</div>
+<p>the log-likelihood of the data is given by：</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{equation}
+\begin{split}
+l(\phi,\mu_{0},\mu_{1},\Sigma) &amp;= log\prod_{i=1}^{n}p(x^{(i)},y^{(i)};\phi,\mu_{0},\mu_{1},\Sigma) \\
+&amp;= log\prod_{i=1}^{n}p(x^{(i)}|y^{(i)};\mu_{0},\mu_{1},\Sigma)p(y^{(i)};\phi)
+\end{split}
+\end{equation}
+\end{split}\]</div>
+<p>we find the maximum likelihood estimate of the parameters are：</p>
+<div class="math notranslate nohighlight">
+\[\phi = \frac{1}{n}\sum_{i=1}^{n}1\left \{ y^{(i)}=1 \right \}\]</div>
+<div class="math notranslate nohighlight">
+\[\mu_{0} = \frac{\sum_{i=1}^{n}1\left \{ y^{(i)}=0 \right \}x^{(i)}  }{\sum_{i=1}^{n}1\left \{ y^{(i)}=0 \right \}} \]</div>
+<div class="math notranslate nohighlight">
+\[\mu_{1} = \frac{\sum_{i=1}^{n}1\left \{ y^{(i)}=1 \right \}x^{(i)}  }{\sum_{i=1}^{n}1\left \{ y^{(i)}=1 \right \}} \]</div>
+<div class="math notranslate nohighlight">
+\[\Sigma=\frac{1}{n}\sum_{i=1}^{n}(x^{(i)} - \mu_{y^{(i)}})(x^{(i)} - \mu_{y^{(i)}})^{T}\]</div>
+<p>as we wanted</p>
+</div>
+<div class="section" id="gda-and-logistic-regression">
+<h2><span class="section-number">4.3. </span>GDA and logistic regression<a class="headerlink" href="#gda-and-logistic-regression" title="Permalink to this headline">¶</a></h2>
+<p>the GDA model has an interesting relationship to logistic regression.</p>
+<p>if we view the quantity <span class="math notranslate nohighlight">\(p(y=1|x; \phi,\Sigma,\mu_{0},\mu_{1})\)</span> as a function of <span class="math notranslate nohighlight">\(x\)</span>, we’ll find that it can be expressed in the form:</p>
+<div class="math notranslate nohighlight">
+\[
+p(y=1|x; \phi,\Sigma,\mu_{0},\mu_{1}) = \frac{1}{1 + exp(-\theta^{T}x)}
+\]</div>
+<p>where <span class="math notranslate nohighlight">\(\theta\)</span> is some appropriate function of <span class="math notranslate nohighlight">\(\phi,\Sigma,\mu_{0},\mu_{1}\)</span>.<br>
+proof:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{equation}
+\begin{split}
+p(y=1|x; \phi,\Sigma,\mu_{0},\mu_{1}) &amp;= \frac{p(y=1, x)}{p(x)} \\
+&amp;=\frac{p(x|y=1)p(y=1)}{p(x|y=1)p(y=1) + p(x|y=1)p(y=1)} \\
+&amp;=\frac{\phi\cdot exp\left (-\frac{1}{2}(x-\mu_{1})^{T}{\Sigma}^{-1}(x-\mu_{1})\right )}{\phi\cdot exp\left (-\frac{1}{2}(x-\mu_{1})^{T}{\Sigma}^{-1}(x-\mu_{1})\right ) + (1 - \phi)\cdot exp\left (-\frac{1}{2}(x-\mu_{0})^{T}{\Sigma}^{-1}(x-\mu_{0})\right )} \\
+&amp;=\frac{1}{1 + \frac{1 - \phi}{\phi}exp\left(-\frac{1}{2}\left((x-\mu_{0})^{T}{\Sigma}^{-1}(x-\mu_{0}) - (x-\mu_{1})^{T}{\Sigma}^{-1}(x-\mu_{1})\right)\right)} \\
+&amp;=\frac{1}{1 + \frac{1 - \phi}{\phi}exp\left(-\frac{1}{2}\left((\mu_{1}^T -\mu_{0}^T)\Sigma^{-1}x + x^{T}\Sigma^{-1}(\mu_{1}-\mu_{0}) + (\mu_{0}^{T}\Sigma^{-1}\mu_{0} - \mu_{1}^{T}\Sigma^{-1}\mu_{1})\right)\right)}
+\end{split}
+\end{equation}
+\end{split}\]</div>
+<p>because of <span class="math notranslate nohighlight">\(x^{T}a=a^{T}x\)</span>, we can express the above as:</p>
+<div class="math notranslate nohighlight">
+\[\frac{1}{1 + exp(-\theta^{T}x)}\]</div>
+<p>so the separating surface of GDA is <span class="math notranslate nohighlight">\(\theta^{T}x=0\)</span>.</p>
+<p>as logistic regression, GDA can be interpreted by logistic model, but with different optimization strategy.</p>
+</div>
+<div class="section" id="naive-bayes">
+<h2><span class="section-number">4.4. </span>Naive Bayes<a class="headerlink" href="#naive-bayes" title="Permalink to this headline">¶</a></h2>
+<p>in GDA，x is continous, when x is discrete, we can use naive bayes.</p>
+<p>suppose <span class="math notranslate nohighlight">\(x=(x_{1}, x_{2},..., x_{d})\)</span>, for simplicity, we assume <span class="math notranslate nohighlight">\(x_{j}\)</span> binary here, we of course have：</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{equation}
+\begin{split}
+p(x|y) &amp;= p(x_{1},x_{2},...,x_{d}|y) \\
+&amp;= p(x_{1}|y)p(x_{2}|y,x_{1})...p(x_{d}|y,x_{1},...,x_{d-1})
+\end{split}
+\end{equation}
+\end{split}\]</div>
+<p>we will assume that <span class="math notranslate nohighlight">\(x_{j}\)</span>’s are conditionally independent given <span class="math notranslate nohighlight">\(y\)</span>. this assumption is called the naive bayes assumption, and the resulting algorithm is called the naive bayes classifier：</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{equation}
+\begin{split}
+p(x|y) &amp;= p(x_{1}|y)p(x_{2}|y,x_{1})...p(x_{d}|y,x_{1},...,x_{d-1}) \\
+&amp;= p(x_{1}|y)p(x_{2}|y)...p(x_{d}|y)
+\end{split}
+\end{equation}
+\end{split}\]</div>
+<p>our model is parameterized by:</p>
+<div class="math notranslate nohighlight">
+\[y\sim Bernoulli(\phi)\]</div>
+<div class="math notranslate nohighlight">
+\[x_{j}|y=1 \sim Bernoulli(\phi_{j|y=1})\]</div>
+<div class="math notranslate nohighlight">
+\[x_{j}|y=0 \sim Bernoulli(\phi_{j|y=0})\]</div>
+<p>note:</p>
+<div class="math notranslate nohighlight">
+\[k = \sum_{i=1}^{n}1\left\{y^{(i)}=1\right\}\]</div>
+<div class="math notranslate nohighlight">
+\[s_{j} = \sum_{i=1}^{n}1\left\{x_{j}^{(i)}=1 \wedge y^{(i)}=1\right\}\]</div>
+<div class="math notranslate nohighlight">
+\[t_{j} = \sum_{i=1}^{n}1\left\{x_{j}^{(i)}=1 \wedge y^{(i)}=0\right\}\]</div>
+<p>we can write down the joint log likelihood of the data:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{equation}
+\begin{split}
+\mathcal{L}(\phi, \phi_{j|y=1}, \phi_{j|y=0}) &amp;= log\prod_{i=1}^{n}p(x^{(i)},y^{(i)})\\
+&amp;=\sum_{i=1}^{n}log(p(x^{(i)}, y^{(i)})) \\
+&amp;=\sum_{i=1}^{n}log(p(y^{(i)})\prod_{j=1}^{d}p(x_{j}^{(i)}|y^{(i)})) \\
+&amp;=\sum_{y^{(i)}=1}(log(\phi) + \sum_{j=1}^{d}log(p(x_{j}^{(i)}|y=1))) + \sum_{y^{(i)}=0}(log(1 - \phi) + \sum_{j=1}^{d}log(p(x_{j}^{(i)}|y=0))) \\
+&amp;=k\ log(\phi) + (n-k)log(1 - \phi) + \sum_{j=1}^{d}(s_{j}\ log(\phi_{j|y=1}) + (k-s_{j})log(1 - \phi_{j|y=1}) + t_{j}\ log(\phi_{j|y=0}) + (n -k - t_{j})log(1 - \phi_{j|y=0})
+\end{split}
+\end{equation}
+\end{split}\]</div>
+<p>maximizing this equal to maximize each part, we derive:</p>
+<div class="math notranslate nohighlight">
+\[\phi=\frac{k}{n}\]</div>
+<div class="math notranslate nohighlight">
+\[\phi_{j|y=1} = \frac{s_{j}}{k}\]</div>
+<div class="math notranslate nohighlight">
+\[\phi_{j|y=0} = \frac{t_{j}}{n-k}\]</div>
+<p>as expected</p>
+</div>
+<div class="section" id="laplace-smoothing">
+<h2><span class="section-number">4.5. </span>Laplace Smoothing<a class="headerlink" href="#laplace-smoothing" title="Permalink to this headline">¶</a></h2>
+<p>there is problem with the naive bayes in its current form</p>
+<p>if <span class="math notranslate nohighlight">\(x_{j}=1\)</span> never occur in the training set, then <span class="math notranslate nohighlight">\(p(x_{j}=1|y=1)=0,p(x_{j}=1|y=0)=0\)</span>.</p>
+<p>hence when predicting a sample <span class="math notranslate nohighlight">\(x\)</span> with <span class="math notranslate nohighlight">\(x_{j}=1\)</span>, then:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{equation}
+\begin{split}
+p(y=1|x) &amp;= \frac{\prod_{k=1}^{d}p(x_{k}|y=1)p(y=1)}{\prod_{k=1}^{d}p(x_{k}|y=1)p(y=1) + \prod_{k=1}^{d}p(x_{k}|y=0)p(y=0)} \\
+&amp;= \frac{0}{0}
+\end{split}
+\end{equation}
+\end{split}\]</div>
+<p>does’t know how to predict.</p>
+<p>to fix this problem, instead of:</p>
+<div class="math notranslate nohighlight">
+\[\phi_{j|y=1}=\frac{\sum_{i=1}^{n}1\left\{x_{j}^{(i)}=1 \wedge y^{(i)}=1\right\}}{\sum_{i=1}^{n}1\left\{y^{(i)}=1\right\}}\]</div>
+<div class="math notranslate nohighlight">
+\[\phi_{j|y=0}=\frac{\sum_{i=1}^{n}1\left\{x_{j}^{(i)}=1 \wedge y^{(i)}=0\right\}}{\sum_{i=1}^{n}1\left\{y^{(i)}=0\right\}}\]</div>
+<p>we add 1 to the numerator, add 2 to the denominator to:</p>
+<ol class="simple">
+<li><p>avoid 0 in the parameter</p></li>
+<li><p><span class="math notranslate nohighlight">\(\phi_{j|y=1}\)</span> and <span class="math notranslate nohighlight">\(\phi_{j|y=0}\)</span> is still a probability distribution.</p></li>
+</ol>
+<p>i.e:</p>
+<div class="math notranslate nohighlight">
+\[\phi_{j|y=1}=\frac{1 + \sum_{i=1}^{n}1\left\{x_{j}^{(i)}=1 \wedge y^{(i)}=1\right\}}{2 + \sum_{i=1}^{n}1\left\{y^{(i)}=1\right\}}\]</div>
+<div class="math notranslate nohighlight">
+\[\phi_{j|y=0}=\frac{1 + \sum_{i=1}^{n}1\left\{x_{j}^{(i)}=1 \wedge y^{(i)}=0\right\}}{2 + \sum_{i=1}^{n}1\left\{y^{(i)}=0\right\}}\]</div>
+</div>
+<div class="section" id="text-classification">
+<h2><span class="section-number">4.6. </span>Text Classification<a class="headerlink" href="#text-classification" title="Permalink to this headline">¶</a></h2>
+<p>bernoulli event model:<br>
+first randomly determined whether a spammer or non-spammer<br>
+then runs through the dictionary deciding whether to include each word j.</p>
+<p>multinomial event model:<br>
+first randomly determined whether a spammer or non-spammer<br>
+then each word in the email is generating from some same multinomial distribution independently.</p>
+<p>using multinomial event model, if we have training set <span class="math notranslate nohighlight">\(\left \{ (x^{(1)},y^{(1)}),...,(x^{(n)},y^{(n)}) \right \}\)</span> where <span class="math notranslate nohighlight">\(x^{(i)}=(x_{1}^{(i)},...,x_{d_{i}}^{(i)})\ \)</span>(here <span class="math notranslate nohighlight">\(d_{i}\)</span> is the number of words in the i-th training example)</p>
+<p>using maximum likelihood estimates of parameters like the above:</p>
+<div class="math notranslate nohighlight">
+\[\phi = \frac{1}{n}\sum_{i=1}^{n}1\left \{ y^{(i)}=1 \right \}\]</div>
+<div class="math notranslate nohighlight">
+\[\phi_{k|y=1}=\frac{\sum_{i=1}^{n}\sum_{j=1}^{d_{i}}1\left \{x_{j}^{(i)}=k\wedge y^{(i)}=1 \right \}}{\sum_{i=1}^{n}1\left \{ y^{(i)}=1 \right \}d_{i}}\]</div>
+<div class="math notranslate nohighlight">
+\[\phi_{k|y=0}=\frac{\sum_{i=1}^{n}\sum_{j=1}^{d_{i}}1\left \{x_{j}^{(i)}=k\wedge y^{(i)}=0 \right \}}{\sum_{i=1}^{n}1\left \{ y^{(i)}=0 \right \}d_{i}}\]</div>
+<p>add laplace smoothing with respect to multinomial event model:</p>
+<div class="math notranslate nohighlight">
+\[\phi_{k|y=1}=\frac{1 + \sum_{i=1}^{n}\sum_{j=1}^{d_{i}}1\left \{x_{j}^{(i)}=k\wedge y^{(i)}=1 \right \}}{\left | V \right | + \sum_{i=1}^{n}1\left \{ y^{(i)}=1 \right \}d_{i}}\]</div>
+<div class="math notranslate nohighlight">
+\[\phi_{k|y=0}=\frac{1 + \sum_{i=1}^{n}\sum_{j=1}^{d_{i}}1\left \{x_{j}^{(i)}=k\wedge y^{(i)}=0 \right \}}{\left | V \right | + \sum_{i=1}^{n}1\left \{ y^{(i)}=0 \right \}d_{i}}\]</div>
+<p><span class="math notranslate nohighlight">\(\left | V \right |\)</span> is the size of the vocabulary</p>
+<p>in short:</p>
+<div class="math notranslate nohighlight">
+\[\phi_{k|y=1}=\frac{1 + number\ of\ words\ k\ occur\ in\ spammer}{\left | V \right | + number\ of\ words\ in\ spammer}\]</div>
+</div>
+</div>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            kernelName: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+              </div>
+              
+        
+        <div class='prev-next-bottom'>
+            
+    <a class='left-prev' id="prev-link" href="03_logistic_regression.html" title="previous page"><span class="section-number">3. </span>Logistic Regression</a>
+    <a class='right-next' id="next-link" href="05_kernel_method.html" title="next page"><span class="section-number">5. </span>Kernel Method</a>
+
+        </div>
+        
+        </div>
+    </div>
+    <footer class="footer mt-5 mt-md-0">
+    <div class="container">
+      <p>
+        
+          By newfacade<br/>
+        
+            &copy; Copyright 2020.<br/>
+      </p>
+    </div>
+  </footer>
+</main>
+
+
+      </div>
+    </div>
+
+    
+  <script src="_static/js/index.d3f166471bb80abb5163.js"></script>
+
+
+    
+  </body>
+</html>

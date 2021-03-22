@@ -1,0 +1,19 @@
+# Table of content
+# Learn more at https://jupyterbook.org/customize/toc.html
+#
+- file: content
+  numbered: true
+- file: 01_introduction
+- file: 02_linear_regression
+- file: 03_logistic_regression
+- file: 04_generative_learning_algorithms
+- file: 05_kernel_method
+- file: 06_decision_tree
+- file: 07_ensemble_learning
+- file: 08_xgboost & ligthgbm
+- file: 09_neural_network
+- file: 10_learning_theory
+- file: 11_clustering
+- file: 12_dimentionality_reduction
+- file: 13_EM
+- file: 14_HMM

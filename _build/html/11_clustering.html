@@ -1,0 +1,552 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>11. Clustering &#8212; Machine Learning Notes</title>
+    
+  <link rel="stylesheet" href="_static/css/index.f658d18f9b420779cfdf24aa0a7e2d77.css">
+
+    
+  <link rel="stylesheet"
+    href="_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    
+      
+  <link rel="stylesheet"
+    href="_static/vendor/open-sans_all/1.44.1/index.css">
+  <link rel="stylesheet"
+    href="_static/vendor/lato_latin-ext/1.44.1/index.css">
+
+    
+    <link rel="stylesheet" href="_static/sphinx-book-theme.e7340bb3dbd8dde6db86f25597f54a1b.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
+    <link rel="stylesheet" type="text/css" href="_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+    
+  <link rel="preload" as="script" href="_static/js/index.d3f166471bb80abb5163.js">
+
+    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/language_data.js"></script>
+    <script src="_static/togglebutton.js"></script>
+    <script src="_static/clipboard.min.js"></script>
+    <script src="_static/copybutton.js"></script>
+    <script >var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="_static/sphinx-book-theme.7d483ff0a819d6edff12ce0b1ead3928.js"></script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["\\(", "\\)"]], "displayMath": [["\\[", "\\]"]], "processRefs": false, "processEnvironments": false}})</script>
+    <script async="async" src="https://unpkg.com/thebelab@latest/lib/index.js"></script>
+    <script >
+        const thebe_selector = ".thebe"
+        const thebe_selector_input = "pre"
+        const thebe_selector_output = ".output"
+    </script>
+    <script async="async" src="_static/sphinx-thebe.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="12. Dimentionality Reduction" href="12_dimentionality_reduction.html" />
+    <link rel="prev" title="10. Learning Theory" href="10_learning_theory.html" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="en" />
+
+
+
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
+    
+        <div class="navbar-brand-box">
+<a class="navbar-brand text-wrap" href="index.html">
+  
+  <img src="_static/logo.png" class="logo" alt="logo">
+  
+  
+  <h1 class="site-logo" id="site-title">Machine Learning Notes</h1>
+  
+</a>
+</div><form class="bd-search d-flex align-items-center" action="search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form>
+<nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
+    <ul class="nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="content.html">
+   This is a notes on machine learning
+  </a>
+ </li>
+</ul>
+<ul class="current nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="01_introduction.html">
+   1. Introduction
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="02_linear_regression.html">
+   2. Linear Regression
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="03_logistic_regression.html">
+   3. Logistic Regression
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="04_generative_learning_algorithms.html">
+   4. Generative Learning Algorithms
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="05_kernel_method.html">
+   5. Kernel Method
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="06_decision_tree.html">
+   6. Decision Tree
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="07_ensemble_learning.html">
+   7. Ensemble Learning
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="08_xgboost &amp; ligthgbm.html">
+   8. XGBoost &amp; LightGBM
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="09_neural_network.html">
+   9. Neural Network
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="10_learning_theory.html">
+   10. Learning Theory
+  </a>
+ </li>
+ <li class="toctree-l1 current active">
+  <a class="current reference internal" href="#">
+   11. Clustering
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="12_dimentionality_reduction.html">
+   12. Dimentionality Reduction
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="13_EM.html">
+   13. EM
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="14_HMM.html">
+   14. Hidden Markov Model
+  </a>
+ </li>
+</ul>
+
+</nav> <!-- To handle the deprecated key -->
+
+<div class="navbar_extra_footer">
+  Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+</div>
+
+</div>
+
+
+          
+
+
+          
+<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
+    
+    <div class="topbar container-xl fixed-top">
+    <div class="topbar-contents row">
+        <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show"></div>
+        <div class="col pl-md-4 topbar-main">
+            
+            <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
+                data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
+                aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
+                title="Toggle navigation" data-toggle="tooltip" data-placement="left">
+                <i class="fas fa-bars"></i>
+                <i class="fas fa-arrow-left"></i>
+                <i class="fas fa-arrow-up"></i>
+            </button>
+            
+            
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
+            class="fas fa-download"></i></button>
+
+    <div class="dropdown-buttons">
+        <!-- ipynb file if we had a myst markdown file -->
+        
+        <!-- Download raw file -->
+        <a class="dropdown-buttons" href="_sources/11_clustering.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
+                data-placement="left">.ipynb</button></a>
+        <!-- Download PDF via print -->
+        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
+            onClick="window.print()" data-toggle="tooltip" data-placement="left">.pdf</button>
+    </div>
+</div>
+
+            <!-- Source interaction buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Connect with source repository"><i class="fab fa-github"></i></button>
+    <div class="dropdown-buttons sourcebuttons">
+        <a class="repository-button"
+            href="https://github.com/executablebooks/jupyter-book"><button type="button" class="btn btn-secondary topbarbtn"
+                data-toggle="tooltip" data-placement="left" title="Source repository"><i
+                    class="fab fa-github"></i>repository</button></a>
+        <a class="issues-button"
+            href="https://github.com/executablebooks/jupyter-book/issues/new?title=Issue%20on%20page%20%2F11_clustering.html&body=Your%20issue%20content%20here."><button
+                type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip" data-placement="left"
+                title="Open an issue"><i class="fas fa-lightbulb"></i>open issue</button></a>
+        
+    </div>
+</div>
+
+
+            <!-- Full screen (wrap in <a> to have style consistency -->
+            <a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
+                    data-placement="bottom" onclick="toggleFullScreen()" aria-label="Fullscreen mode"
+                    title="Fullscreen mode"><i
+                        class="fas fa-expand"></i></button></a>
+
+            <!-- Launch buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
+    <div class="dropdown-buttons">
+        
+        <a class="binder-button" href="https://mybinder.org/v2/gh/executablebooks/jupyter-book/master?urlpath=tree/docs/11_clustering.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Launch Binder" data-toggle="tooltip"
+                data-placement="left"><img class="binder-button-logo"
+                    src="_static/images/logo_binder.svg"
+                    alt="Interact on binder">Binder</button></a>
+        
+        
+        
+        
+    </div>
+</div>
+
+        </div>
+
+        <!-- Table of contents -->
+        <div class="d-none d-md-block col-md-2 bd-toc show">
+            
+        <div class="tocsection onthispage pt-5 pb-3">
+            <i class="fas fa-list"></i>
+            Contents
+        </div>
+        <nav id="bd-toc-nav">
+            <ul class="nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#k-means">
+   11.1. k-means
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#k-means-algorithm">
+     11.1.1. k-means algorithm
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#convergence">
+     11.1.2. convergence
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#practice">
+     11.1.3. practice
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+
+        </nav>
+        
+        </div>
+    </div>
+</div>
+    <div id="main-content" class="row">
+        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+        
+              <div>
+                
+  <div class="section" id="clustering">
+<h1><span class="section-number">11. </span>Clustering<a class="headerlink" href="#clustering" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="k-means">
+<h2><span class="section-number">11.1. </span>k-means<a class="headerlink" href="#k-means" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="k-means-algorithm">
+<h3><span class="section-number">11.1.1. </span>k-means algorithm<a class="headerlink" href="#k-means-algorithm" title="Permalink to this headline">¶</a></h3>
+<p>in the clustering problem, we are given a training set <span class="math notranslate nohighlight">\(\left\{x^{(1)},...,x^{(n)}\right\}\)</span>, and want to group the data into a few cohesive “clusters”.</p>
+<p>here, <span class="math notranslate nohighlight">\(x^{(i)} \in \mathbb{R}^{d}\)</span> as usual, but no labels <span class="math notranslate nohighlight">\(y^{(i)}\)</span> are given, so this is an unsupervised learning problem.</p>
+<p>k-means clustering algorithm:</p>
+<ol class="simple">
+<li><p>initialize cluster centroids <span class="math notranslate nohighlight">\(\mu_{1},...,\mu_{k} \in \mathbb{R}^{d}\)</span> randomly.</p></li>
+<li><p>repeat until convergence:<br>
+<span class="math notranslate nohighlight">\(\quad\)</span> for each <span class="math notranslate nohighlight">\(i\)</span>, set:
+$<span class="math notranslate nohighlight">\(c^{(i)} := \underset{j}{argmin}\left \|x^{(i)} - \mu_{j} \right \|^{2} \)</span><span class="math notranslate nohighlight">\(
+\)</span>\quad<span class="math notranslate nohighlight">\( for each \)</span>j<span class="math notranslate nohighlight">\(, set:
+\)</span><span class="math notranslate nohighlight">\(\mu_{j} := \frac{\sum_{i=1}^{n}1\left\{c^{(i)}=j\right\}x^{(i)}}{\sum_{i=1}^{n}1\left\{c^{(i)}=j\right\}}\)</span>$</p></li>
+</ol>
+<p>k is the number of clusters we want to find.</p>
+</div>
+<div class="section" id="convergence">
+<h3><span class="section-number">11.1.2. </span>convergence<a class="headerlink" href="#convergence" title="Permalink to this headline">¶</a></h3>
+<p>define the distortion function to be:</p>
+<div class="math notranslate nohighlight">
+\[J(c,\mu) = \sum_{i=1}^{n}\left \|x^{(i)} - \mu_{c^{(i)}} \right \|^{2}\]</div>
+<p>thus <span class="math notranslate nohighlight">\(J\)</span> measures the sum of squared distances between each training example <span class="math notranslate nohighlight">\(x^{(i)}\)</span> and the nearest cluster centroid <span class="math notranslate nohighlight">\(\mu_{c^{(i)}}\)</span></p>
+<p>k-means is exactly coordinate descent on <span class="math notranslate nohighlight">\(J\)</span>.</p>
+<p>the first step of k-means inner-loop:</p>
+<p><span class="math notranslate nohighlight">\(\quad\)</span> minimize <span class="math notranslate nohighlight">\(J\)</span> with respect to <span class="math notranslate nohighlight">\(c\)</span> while holding <span class="math notranslate nohighlight">\(\mu\)</span> fixed.</p>
+<p>the second step of k-means inner-loop:</p>
+<p><span class="math notranslate nohighlight">\(\quad\)</span> minimize <span class="math notranslate nohighlight">\(J\)</span> with respect to <span class="math notranslate nohighlight">\(\mu\)</span> while holding <span class="math notranslate nohighlight">\(c\)</span> fixed.</p>
+<p>but the distortion function <span class="math notranslate nohighlight">\(J\)</span> is non-convex, so k-means may converge to local minimal.</p>
+<p>to tackle this local-minimal problem, we commonly run k-means many times, and choose the one gives the lowest <span class="math notranslate nohighlight">\(J(c, \mu)\)</span></p>
+</div>
+<div class="section" id="practice">
+<h3><span class="section-number">11.1.3. </span>practice<a class="headerlink" href="#practice" title="Permalink to this headline">¶</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.datasets</span> <span class="kn">import</span> <span class="n">load_digits</span>
+<span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">train_test_split</span>
+
+<span class="n">X_digits</span><span class="p">,</span> <span class="n">y_digits</span> <span class="o">=</span> <span class="n">load_digits</span><span class="p">(</span><span class="n">return_X_y</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">X_train</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">y_test</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span><span class="n">X_digits</span><span class="p">,</span> <span class="n">y_digits</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.linear_model</span> <span class="kn">import</span> <span class="n">LogisticRegression</span>
+
+<span class="n">n_labeled</span> <span class="o">=</span> <span class="mi">50</span>
+<span class="n">log_reg</span> <span class="o">=</span> <span class="n">LogisticRegression</span><span class="p">()</span>
+<span class="n">log_reg</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">[:</span> <span class="n">n_labeled</span><span class="p">],</span> <span class="n">y_train</span><span class="p">[:</span> <span class="n">n_labeled</span><span class="p">])</span>
+
+<span class="n">log_reg</span><span class="o">.</span><span class="n">score</span><span class="p">(</span><span class="n">X_test</span><span class="p">,</span> <span class="n">y_test</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/Users/facer/opt/anaconda3/lib/python3.8/site-packages/sklearn/linear_model/_logistic.py:762: ConvergenceWarning: lbfgs failed to converge (status=1):
+STOP: TOTAL NO. of ITERATIONS REACHED LIMIT.
+
+Increase the number of iterations (max_iter) or scale the data as shown in:
+    https://scikit-learn.org/stable/modules/preprocessing.html
+Please also refer to the documentation for alternative solver options:
+    https://scikit-learn.org/stable/modules/linear_model.html#logistic-regression
+  n_iter_i = _check_optimize_result(
+</pre></div>
+</div>
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.84
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.cluster</span> <span class="kn">import</span> <span class="n">KMeans</span>
+
+<span class="n">k</span><span class="o">=</span><span class="mi">50</span>
+<span class="n">kmeans</span> <span class="o">=</span> <span class="n">KMeans</span><span class="p">(</span><span class="n">n_clusters</span><span class="o">=</span><span class="n">k</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
+<span class="n">X_digits_dist</span> <span class="o">=</span> <span class="n">kmeans</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">X_train</span><span class="p">)</span>
+<span class="n">X_digits_dist</span><span class="o">.</span><span class="n">shape</span>  <span class="c1"># sample distance from each centroid</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(1347, 50)
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+<span class="n">representative_digit_idx</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">argmin</span><span class="p">(</span><span class="n">X_digits_dist</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">X_representative_digits</span> <span class="o">=</span> <span class="n">X_train</span><span class="p">[</span><span class="n">representative_digit_idx</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">y_representative_digits</span> <span class="o">=</span> <span class="n">y_train</span><span class="p">[</span><span class="n">representative_digit_idx</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">log_reg</span> <span class="o">=</span> <span class="n">LogisticRegression</span><span class="p">(</span><span class="n">multi_class</span><span class="o">=</span><span class="s2">&quot;ovr&quot;</span><span class="p">,</span> <span class="n">solver</span><span class="o">=</span><span class="s2">&quot;lbfgs&quot;</span><span class="p">,</span> <span class="n">max_iter</span><span class="o">=</span><span class="mi">5000</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
+<span class="n">log_reg</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_representative_digits</span><span class="p">,</span> <span class="n">y_representative_digits</span><span class="p">)</span>
+<span class="n">log_reg</span><span class="o">.</span><span class="n">score</span><span class="p">(</span><span class="n">X_test</span><span class="p">,</span> <span class="n">y_test</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.9333333333333333
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">y_train_propagated</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">empty</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">X_train</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">int32</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">k</span><span class="p">):</span>
+    <span class="n">y_train_propagated</span><span class="p">[</span><span class="n">kmeans</span><span class="o">.</span><span class="n">labels_</span><span class="o">==</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">y_representative_digits</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+    
+<span class="n">log_reg</span> <span class="o">=</span> <span class="n">LogisticRegression</span><span class="p">(</span><span class="n">multi_class</span><span class="o">=</span><span class="s2">&quot;ovr&quot;</span><span class="p">,</span> <span class="n">solver</span><span class="o">=</span><span class="s2">&quot;lbfgs&quot;</span><span class="p">,</span> <span class="n">max_iter</span><span class="o">=</span><span class="mi">5000</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
+<span class="n">log_reg</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train_propagated</span><span class="p">)</span>
+
+<span class="n">log_reg</span><span class="o">.</span><span class="n">score</span><span class="p">(</span><span class="n">X_test</span><span class="p">,</span> <span class="n">y_test</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.9333333333333333
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">percentile_closest</span> <span class="o">=</span> <span class="mi">75</span>
+
+<span class="n">X_cluster_dist</span> <span class="o">=</span> <span class="n">X_digits_dist</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">X_train</span><span class="p">)),</span> <span class="n">kmeans</span><span class="o">.</span><span class="n">labels_</span><span class="p">]</span>  <span class="c1"># distance of each sample</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">k</span><span class="p">):</span>
+    <span class="n">in_cluster</span> <span class="o">=</span> <span class="p">(</span><span class="n">kmeans</span><span class="o">.</span><span class="n">labels_</span> <span class="o">==</span> <span class="n">i</span><span class="p">)</span>
+    <span class="n">cluster_dist</span> <span class="o">=</span> <span class="n">X_cluster_dist</span><span class="p">[</span><span class="n">in_cluster</span><span class="p">]</span>
+    <span class="n">cutoff_distance</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">percentile</span><span class="p">(</span><span class="n">cluster_dist</span><span class="p">,</span> <span class="n">percentile_closest</span><span class="p">)</span>
+    <span class="n">above_cutoff</span> <span class="o">=</span> <span class="p">(</span><span class="n">X_cluster_dist</span> <span class="o">&gt;</span> <span class="n">cutoff_distance</span><span class="p">)</span>
+    <span class="n">X_cluster_dist</span><span class="p">[</span><span class="n">in_cluster</span> <span class="o">&amp;</span> <span class="n">above_cutoff</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>
+    
+<span class="n">partially_propagated</span> <span class="o">=</span> <span class="p">(</span><span class="n">X_cluster_dist</span> <span class="o">!=</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">X_train_partially_propagated</span> <span class="o">=</span> <span class="n">X_train</span><span class="p">[</span><span class="n">partially_propagated</span><span class="p">]</span>
+<span class="n">y_train_partially_propagated</span> <span class="o">=</span> <span class="n">y_train_propagated</span><span class="p">[</span><span class="n">partially_propagated</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">log_reg</span> <span class="o">=</span> <span class="n">LogisticRegression</span><span class="p">(</span><span class="n">multi_class</span><span class="o">=</span><span class="s2">&quot;ovr&quot;</span><span class="p">,</span> <span class="n">solver</span><span class="o">=</span><span class="s2">&quot;lbfgs&quot;</span><span class="p">,</span> <span class="n">max_iter</span><span class="o">=</span><span class="mi">5000</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
+<span class="n">log_reg</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train_partially_propagated</span><span class="p">,</span> <span class="n">y_train_partially_propagated</span><span class="p">)</span>
+
+<span class="n">log_reg</span><span class="o">.</span><span class="n">score</span><span class="p">(</span><span class="n">X_test</span><span class="p">,</span> <span class="n">y_test</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.94
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">y_train_partially_propagated</span> <span class="o">==</span> <span class="n">y_train</span><span class="p">[</span><span class="n">partially_propagated</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.9701492537313433
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            kernelName: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+              </div>
+              
+        
+        <div class='prev-next-bottom'>
+            
+    <a class='left-prev' id="prev-link" href="10_learning_theory.html" title="previous page"><span class="section-number">10. </span>Learning Theory</a>
+    <a class='right-next' id="next-link" href="12_dimentionality_reduction.html" title="next page"><span class="section-number">12. </span>Dimentionality Reduction</a>
+
+        </div>
+        
+        </div>
+    </div>
+    <footer class="footer mt-5 mt-md-0">
+    <div class="container">
+      <p>
+        
+          By newfacade<br/>
+        
+            &copy; Copyright 2020.<br/>
+      </p>
+    </div>
+  </footer>
+</main>
+
+
+      </div>
+    </div>
+
+    
+  <script src="_static/js/index.d3f166471bb80abb5163.js"></script>
+
+
+    
+  </body>
+</html>

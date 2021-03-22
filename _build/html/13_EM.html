@@ -1,0 +1,1823 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>13. EM &#8212; Machine Learning Notes</title>
+    
+  <link rel="stylesheet" href="_static/css/index.f658d18f9b420779cfdf24aa0a7e2d77.css">
+
+    
+  <link rel="stylesheet"
+    href="_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    
+      
+  <link rel="stylesheet"
+    href="_static/vendor/open-sans_all/1.44.1/index.css">
+  <link rel="stylesheet"
+    href="_static/vendor/lato_latin-ext/1.44.1/index.css">
+
+    
+    <link rel="stylesheet" href="_static/sphinx-book-theme.e7340bb3dbd8dde6db86f25597f54a1b.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
+    <link rel="stylesheet" type="text/css" href="_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+    
+  <link rel="preload" as="script" href="_static/js/index.d3f166471bb80abb5163.js">
+
+    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/language_data.js"></script>
+    <script src="_static/togglebutton.js"></script>
+    <script src="_static/clipboard.min.js"></script>
+    <script src="_static/copybutton.js"></script>
+    <script >var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="_static/sphinx-book-theme.7d483ff0a819d6edff12ce0b1ead3928.js"></script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["\\(", "\\)"]], "displayMath": [["\\[", "\\]"]], "processRefs": false, "processEnvironments": false}})</script>
+    <script async="async" src="https://unpkg.com/thebelab@latest/lib/index.js"></script>
+    <script >
+        const thebe_selector = ".thebe"
+        const thebe_selector_input = "pre"
+        const thebe_selector_output = ".output"
+    </script>
+    <script async="async" src="_static/sphinx-thebe.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="14. Hidden Markov Model" href="14_HMM.html" />
+    <link rel="prev" title="12. Dimentionality Reduction" href="12_dimentionality_reduction.html" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="en" />
+
+
+
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
+    
+        <div class="navbar-brand-box">
+<a class="navbar-brand text-wrap" href="index.html">
+  
+  <img src="_static/logo.png" class="logo" alt="logo">
+  
+  
+  <h1 class="site-logo" id="site-title">Machine Learning Notes</h1>
+  
+</a>
+</div><form class="bd-search d-flex align-items-center" action="search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form>
+<nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
+    <ul class="nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="content.html">
+   This is a notes on machine learning
+  </a>
+ </li>
+</ul>
+<ul class="current nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="01_introduction.html">
+   1. Introduction
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="02_linear_regression.html">
+   2. Linear Regression
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="03_logistic_regression.html">
+   3. Logistic Regression
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="04_generative_learning_algorithms.html">
+   4. Generative Learning Algorithms
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="05_kernel_method.html">
+   5. Kernel Method
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="06_decision_tree.html">
+   6. Decision Tree
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="07_ensemble_learning.html">
+   7. Ensemble Learning
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="08_xgboost &amp; ligthgbm.html">
+   8. XGBoost &amp; LightGBM
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="09_neural_network.html">
+   9. Neural Network
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="10_learning_theory.html">
+   10. Learning Theory
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="11_clustering.html">
+   11. Clustering
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="12_dimentionality_reduction.html">
+   12. Dimentionality Reduction
+  </a>
+ </li>
+ <li class="toctree-l1 current active">
+  <a class="current reference internal" href="#">
+   13. EM
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="14_HMM.html">
+   14. Hidden Markov Model
+  </a>
+ </li>
+</ul>
+
+</nav> <!-- To handle the deprecated key -->
+
+<div class="navbar_extra_footer">
+  Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+</div>
+
+</div>
+
+
+          
+
+
+          
+<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
+    
+    <div class="topbar container-xl fixed-top">
+    <div class="topbar-contents row">
+        <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show"></div>
+        <div class="col pl-md-4 topbar-main">
+            
+            <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
+                data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
+                aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
+                title="Toggle navigation" data-toggle="tooltip" data-placement="left">
+                <i class="fas fa-bars"></i>
+                <i class="fas fa-arrow-left"></i>
+                <i class="fas fa-arrow-up"></i>
+            </button>
+            
+            
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
+            class="fas fa-download"></i></button>
+
+    <div class="dropdown-buttons">
+        <!-- ipynb file if we had a myst markdown file -->
+        
+        <!-- Download raw file -->
+        <a class="dropdown-buttons" href="_sources/13_EM.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
+                data-placement="left">.ipynb</button></a>
+        <!-- Download PDF via print -->
+        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
+            onClick="window.print()" data-toggle="tooltip" data-placement="left">.pdf</button>
+    </div>
+</div>
+
+            <!-- Source interaction buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Connect with source repository"><i class="fab fa-github"></i></button>
+    <div class="dropdown-buttons sourcebuttons">
+        <a class="repository-button"
+            href="https://github.com/executablebooks/jupyter-book"><button type="button" class="btn btn-secondary topbarbtn"
+                data-toggle="tooltip" data-placement="left" title="Source repository"><i
+                    class="fab fa-github"></i>repository</button></a>
+        <a class="issues-button"
+            href="https://github.com/executablebooks/jupyter-book/issues/new?title=Issue%20on%20page%20%2F13_EM.html&body=Your%20issue%20content%20here."><button
+                type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip" data-placement="left"
+                title="Open an issue"><i class="fas fa-lightbulb"></i>open issue</button></a>
+        
+    </div>
+</div>
+
+
+            <!-- Full screen (wrap in <a> to have style consistency -->
+            <a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
+                    data-placement="bottom" onclick="toggleFullScreen()" aria-label="Fullscreen mode"
+                    title="Fullscreen mode"><i
+                        class="fas fa-expand"></i></button></a>
+
+            <!-- Launch buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
+    <div class="dropdown-buttons">
+        
+        <a class="binder-button" href="https://mybinder.org/v2/gh/executablebooks/jupyter-book/master?urlpath=tree/docs/13_EM.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Launch Binder" data-toggle="tooltip"
+                data-placement="left"><img class="binder-button-logo"
+                    src="_static/images/logo_binder.svg"
+                    alt="Interact on binder">Binder</button></a>
+        
+        
+        
+        
+    </div>
+</div>
+
+        </div>
+
+        <!-- Table of contents -->
+        <div class="d-none d-md-block col-md-2 bd-toc show">
+            
+        <div class="tocsection onthispage pt-5 pb-3">
+            <i class="fas fa-list"></i>
+            Contents
+        </div>
+        <nav id="bd-toc-nav">
+            <ul class="nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#mixtures-of-gaussians">
+   13.1. Mixtures of Gaussians
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#the-em-algorithm">
+   13.2. The EM algorithm
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#convergence-of-em-algorithm">
+   13.3. Convergence of EM algorithm
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#bayesian-gaussian-mixture-models">
+   13.4. Bayesian Gaussian Mixture Models
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#excercises">
+   13.5. Excercises
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#clustering">
+     13.5.1. 1.clustering
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#clustering-classification">
+     13.5.2. 2.clustering + classification
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#gaussian-mixture-model">
+     13.5.3. 3.Gaussian Mixture Model
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#using-dimensionality-reduction-techniques-for-anomaly-detection">
+     13.5.4. 4.Using Dimensionality Reduction Techniques for Anomaly Detection
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+
+        </nav>
+        
+        </div>
+    </div>
+</div>
+    <div id="main-content" class="row">
+        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+        
+              <div>
+                
+  <div class="section" id="em">
+<h1><span class="section-number">13. </span>EM<a class="headerlink" href="#em" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="mixtures-of-gaussians">
+<h2><span class="section-number">13.1. </span>Mixtures of Gaussians<a class="headerlink" href="#mixtures-of-gaussians" title="Permalink to this headline">¶</a></h2>
+<p>given a training set <span class="math notranslate nohighlight">\(\left\{x^{(1)},...,x^{(n)}\right\}\)</span> with no labels. each point <span class="math notranslate nohighlight">\(x^{(i)}\)</span> has a latent variable <span class="math notranslate nohighlight">\(z^{(i)}\)</span>, the data is specified by a joint probability <span class="math notranslate nohighlight">\(p(x^{(i)}, z^{(i)}) = p(x^{(i)}| z^{(i)})p(z^{(i)})\)</span></p>
+<p>mixtures of gaussians assumes <span class="math notranslate nohighlight">\(z^{(i)}\sim Multinomial(\phi)\)</span> (where <span class="math notranslate nohighlight">\(\phi_{j} \ge 0, \sum_{j=1}^{k}\phi_{j}=1\)</span>, <span class="math notranslate nohighlight">\(\phi_{j}\)</span> gives <span class="math notranslate nohighlight">\(p(z^{(i)}=j)\)</span>), and <span class="math notranslate nohighlight">\(x^{(i)}|z^{(i)}=j \sim \mathcal{N}(\mu_{j}, \Sigma_{j})\)</span>. we let <span class="math notranslate nohighlight">\(k\)</span> denote the number of values <span class="math notranslate nohighlight">\(z^{(i)}\)</span>’s can take on.</p>
+<p>thus our model posits that each <span class="math notranslate nohighlight">\(x^{(i)}\)</span> was generated by randomly choosing <span class="math notranslate nohighlight">\(z^{(i)}\)</span> from <span class="math notranslate nohighlight">\(\{1,...,k\}\)</span>, and <span class="math notranslate nohighlight">\(x^{(i)}\)</span> was drawn from one of <span class="math notranslate nohighlight">\(k\)</span> gaussians depending on <span class="math notranslate nohighlight">\(z^{(i)}\)</span>.</p>
+<p>the parameters of our model are <span class="math notranslate nohighlight">\(\phi, \mu, \Sigma\)</span>, to estimate them, we can write down the likelihood of our data:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{equation}
+\begin{split}
+l(\phi, \mu, \Sigma) =&amp; \sum_{i=1}^{n}log\,p(x^{(i)};\phi,\mu,\Sigma)\\
+=&amp; \sum_{i=1}^{n}log\sum_{z^{(i)}=1}^{k}p(x^{(i)}|z^{(i)}; \mu,\Sigma)p(z^{(i)};\phi)
+\end{split}
+\end{equation}
+\end{split}\]</div>
+<p>it is not possible to find the maximum likelihood estimate of the parameters in closed form.</p>
+<p>on the other hand, if we knew what <span class="math notranslate nohighlight">\(z^{(i)}\)</span>’s were, the maximum likelihood problem would have been easy.</p>
+<p>specifically, we could then write down the likelihood as:</p>
+<div class="math notranslate nohighlight">
+\[l(\phi, \mu, \Sigma) = \sum_{i=1}^{n}log\,p(x^{(i)}|z^{(i)};\mu,\Sigma) + log\,p(z^{(i)}; \phi)\]</div>
+<p>maximizing this with respect to <span class="math notranslate nohighlight">\(\phi, \mu, \Sigma\)</span> gives the parameters:</p>
+<div class="math notranslate nohighlight">
+\[\phi_{j} = \frac{1}{n}\sum_{i=1}^{n}1\{z^{(i)} = j\}\]</div>
+<div class="math notranslate nohighlight">
+\[\mu_{j} = \frac{\sum_{i=1}^{n}1\{z^{(i)} = j\}x^{(i)}}{\sum_{i=1}^{n}1\{z^{(i)} = j\}}\]</div>
+<div class="math notranslate nohighlight">
+\[\Sigma_{j} = \frac{\sum_{i=1}^{n}1\{z^{(i)} = j\}(x^{(i)} - \mu_{j})(x^{(i)} - \mu_{j})^{T}}{\sum_{i=1}^{n}1\{z^{(i)} = j\}}\]</div>
+<p>it is identical to the gaussian discriminant analysis(GDA).</p>
+<p>however, in our density estimation problems, <span class="math notranslate nohighlight">\(z^{(i)}\)</span>’s are not known, what can we do?</p>
+<p>the EM algorithm is an iterative algorithm that has two main steps:</p>
+<p><strong>1.the E-step, it tries to “guess” the values of the <span class="math notranslate nohighlight">\(z^{(i)}\)</span>’s.</strong></p>
+<p><strong>2.the M-step, it updates the parameters of our model based on our guesses.</strong></p>
+<p>since in the M-step we are pretending that the guesses in the first part were correct, the maximization becomes easy, here’s the algorithm:</p>
+<p>(E-step) for each <span class="math notranslate nohighlight">\(i, j\)</span> set</p>
+<div class="math notranslate nohighlight">
+\[w_{j}^{(i)} := p(z^{i}=j|x^{(i)}; \phi,\mu,\Sigma)\]</div>
+<p>(M-step) update the parameters:</p>
+<div class="math notranslate nohighlight">
+\[\phi_{j} := \frac{1}{n}\sum_{i=1}^{n}w_{j}^{(i)}\]</div>
+<div class="math notranslate nohighlight">
+\[\mu_{j} := \frac{\sum_{i=1}^{n}w_{j}^{(i)}x^{(i)}}{\sum_{i=1}^{n}w_{j}^{(i)}}\]</div>
+<div class="math notranslate nohighlight">
+\[\Sigma_{j} := \frac{\sum_{i=1}^{n}w_{j}^{(i)}(x^{(i)} - \mu_{j})(x^{(i)} - \mu_{j})^{T}}{\sum_{i=1}^{n}w_{j}^{(i)}}\]</div>
+<p>the EM-algorithm likes the K-means-algorithm.</p>
+<p>except that instead of “hard” cluster assignments <span class="math notranslate nohighlight">\(c(i)\)</span>, we have the “soft” assignments <span class="math notranslate nohighlight">\(w_{j}^{(i)}\)</span>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.mixture</span> <span class="kn">import</span> <span class="n">GaussianMixture</span>
+<span class="kn">from</span> <span class="nn">sklearn.datasets</span> <span class="kn">import</span> <span class="n">make_blobs</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">X1</span><span class="p">,</span> <span class="n">y1</span> <span class="o">=</span> <span class="n">make_blobs</span><span class="p">(</span><span class="n">n_samples</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span> <span class="n">centers</span><span class="o">=</span><span class="p">((</span><span class="mi">4</span><span class="p">,</span> <span class="o">-</span><span class="mi">4</span><span class="p">),</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)),</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
+<span class="n">X1</span> <span class="o">=</span> <span class="n">X1</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mf">0.374</span><span class="p">,</span> <span class="mf">0.95</span><span class="p">],</span> <span class="p">[</span><span class="mf">0.732</span><span class="p">,</span> <span class="mf">0.598</span><span class="p">]]))</span>
+<span class="n">X2</span><span class="p">,</span> <span class="n">y2</span> <span class="o">=</span> <span class="n">make_blobs</span><span class="p">(</span><span class="n">n_samples</span><span class="o">=</span><span class="mi">250</span><span class="p">,</span> <span class="n">centers</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
+<span class="n">X2</span> <span class="o">=</span> <span class="n">X2</span> <span class="o">+</span> <span class="p">[</span><span class="mi">6</span><span class="p">,</span> <span class="o">-</span><span class="mi">8</span><span class="p">]</span>
+<span class="n">X</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">r_</span><span class="p">[</span><span class="n">X1</span><span class="p">,</span> <span class="n">X2</span><span class="p">]</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">r_</span><span class="p">[</span><span class="n">y1</span><span class="p">,</span> <span class="n">y2</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+
+<span class="k">def</span> <span class="nf">plot_clusters</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">X</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">X</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">c</span><span class="o">=</span><span class="n">y</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;$x_1$&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">14</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;$x_2$&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">14</span><span class="p">,</span> <span class="n">rotation</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plot_clusters</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/13_EM_5_0.png" src="_images/13_EM_5_0.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">gm</span> <span class="o">=</span> <span class="n">GaussianMixture</span><span class="p">(</span><span class="n">n_components</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">n_init</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
+<span class="n">gm</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>GaussianMixture(n_components=3, n_init=10, random_state=42)
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">gm</span><span class="o">.</span><span class="n">weights_</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([0.39054348, 0.2093669 , 0.40008962])
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">gm</span><span class="o">.</span><span class="n">means_</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[ 0.05224874,  0.07631976],
+       [ 3.40196611,  1.05838748],
+       [-1.40754214,  1.42716873]])
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">gm</span><span class="o">.</span><span class="n">covariances_</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[[ 0.6890309 ,  0.79717058],
+        [ 0.79717058,  1.21367348]],
+
+       [[ 1.14296668, -0.03114176],
+        [-0.03114176,  0.9545003 ]],
+
+       [[ 0.63496849,  0.7298512 ],
+        [ 0.7298512 ,  1.16112807]]])
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">gm</span><span class="o">.</span><span class="n">converged_</span><span class="p">,</span> <span class="n">gm</span><span class="o">.</span><span class="n">n_iter_</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(True, 4)
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">gm</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X</span><span class="p">),</span> <span class="n">gm</span><span class="o">.</span><span class="n">predict_proba</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(array([0, 0, 2, ..., 1, 1, 1]),
+ array([[9.77227791e-01, 2.27715290e-02, 6.79898914e-07],
+        [9.83288385e-01, 1.60345103e-02, 6.77104389e-04],
+        [7.51824662e-05, 1.90251273e-06, 9.99922915e-01],
+        ...,
+        [4.35053542e-07, 9.99999565e-01, 2.17938894e-26],
+        [5.27837047e-16, 1.00000000e+00, 1.50679490e-41],
+        [2.32355608e-15, 1.00000000e+00, 8.21915701e-41]]))
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">X_new</span><span class="p">,</span> <span class="n">y_new</span> <span class="o">=</span> <span class="n">gm</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="mi">7</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">gm</span><span class="o">.</span><span class="n">score_samples</span><span class="p">(</span><span class="n">X_new</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([-3.34427009, -2.02769179, -3.91562628, -3.70201822, -3.6604595 ,
+       -5.30422293, -3.60530384])
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">gm</span><span class="o">.</span><span class="n">bic</span><span class="p">(</span><span class="n">X</span><span class="p">),</span> <span class="n">gm</span><span class="o">.</span><span class="n">aic</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(8189.662685850681, 8102.437405735643)
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="the-em-algorithm">
+<h2><span class="section-number">13.2. </span>The EM algorithm<a class="headerlink" href="#the-em-algorithm" title="Permalink to this headline">¶</a></h2>
+<p>here comes the general view of EM.</p>
+<p>like the assumption before, we have the training set <span class="math notranslate nohighlight">\(\left\{x^{(1)},...,x^{(n)}\right\}\)</span>, each point <span class="math notranslate nohighlight">\(x^{(i)}\)</span> has a latent variable <span class="math notranslate nohighlight">\(z^{(i)}\)</span>.</p>
+<p>denote <span class="math notranslate nohighlight">\(\theta\)</span> as the distribution parameters(<span class="math notranslate nohighlight">\(\phi,\mu,\Sigma\)</span> in mixtures of gaussian), then density of <span class="math notranslate nohighlight">\(x\)</span> can be obtained by:</p>
+<div class="math notranslate nohighlight">
+\[p(x;\theta) = \sum_{z}p(x,z;\theta)\]</div>
+<p>the log-likelihood of the data:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{equation}
+\begin{split}
+l(\theta) =&amp; \sum_{i=1}^{n}log\,p(x^{(i)}; \theta) \\
+=&amp; \sum_{i=1}^{n}log\sum_{z^{(i)}}p(x^{(i)}, z^{(i)}; \theta)
+\end{split}
+\end{equation}
+\end{split}\]</div>
+<p>instead of solving the maximum-likelihood directly(usually very hard), the EM algorithm repeatedly construct a lower-bound on <span class="math notranslate nohighlight">\(l\)</span>(E-step), and then optimize that lower-bound(M-step).</p>
+<p>we first consider optimizing the likelihood <span class="math notranslate nohighlight">\(log\,p(x)\)</span> for a single example <span class="math notranslate nohighlight">\(x\)</span>, optimize <span class="math notranslate nohighlight">\(log\,p(x;\theta)\)</span>:</p>
+<div class="math notranslate nohighlight">
+\[log\,p(x;\theta) = log\sum_{z}p(x,z;\theta)\]</div>
+<p>let <span class="math notranslate nohighlight">\(Q\)</span> be a distribution over the possible values of <span class="math notranslate nohighlight">\(z\)</span>, then:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{equation}
+\begin{split}
+log\,p(x;\theta) =&amp; log\sum_{z}p(x,z;\theta)\\
+=&amp; log\sum_{z}Q(z)\frac{p(x,z;\theta)}{Q(z)}\\
+\ge&amp; \sum_{z}Q(z)log\frac{p(x,z;\theta)}{Q(z)}
+\end{split}
+\end{equation}
+\end{split}\]</div>
+<p>the last step uses Jensen’s inequality, for <span class="math notranslate nohighlight">\((log\,x)'' = -1/x^{2} &lt; 0\)</span> so that strictly concave.</p>
+<p>for any distribution <span class="math notranslate nohighlight">\(Q\)</span>, the above formula gives a lower-bound on <span class="math notranslate nohighlight">\(log\,p(x;\theta)\)</span>.</p>
+<p>to make the bound tight for a particular value of <span class="math notranslate nohighlight">\(\theta\)</span>, we want the Jensen’s inequality to hold with equality. it is sufficient the expecation take on “constant”-valued random variables, i.e:</p>
+<div class="math notranslate nohighlight">
+\[\frac{p(x,z;\theta)}{Q(z)} = c\]</div>
+<p>this leads to:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{equation}
+\begin{split}
+Q(z) =&amp; \frac{p(x,z;\theta)}{\sum_{z}p(x,z;\theta)}\\
+=&amp; \frac{p(x,z;\theta)}{p(x;\theta)}\\
+=&amp; p(z|x;\theta)
+\end{split}
+\end{equation}
+\end{split}\]</div>
+<p>thus, we simply set <span class="math notranslate nohighlight">\(Q\)</span> to be the posterior distribution of <span class="math notranslate nohighlight">\(z\)</span>’s given <span class="math notranslate nohighlight">\(x\)</span> and <span class="math notranslate nohighlight">\(\theta\)</span>.</p>
+<p>for convenience, we call the bound as <strong>evidence lower bound(ELBO)</strong>:</p>
+<div class="math notranslate nohighlight">
+\[ELBO(x;Q,\theta) = \sum_{z}Q(z)log\frac{p(x,z;\theta)}{Q(z)}\]</div>
+<p>the estimation now can re-write as:</p>
+<div class="math notranslate nohighlight">
+\[\forall Q,\theta,x,\quad log\,p(x;\theta) \ge ELBO(x;Q,\theta)\]</div>
+<p>Intuitively, the EM algorithm alternatively update <span class="math notranslate nohighlight">\(Q\)</span> and <span class="math notranslate nohighlight">\(\theta\)</span> by:</p>
+<p>a.setting <span class="math notranslate nohighlight">\(Q(z) = p(z|x;\theta)\)</span> so that <span class="math notranslate nohighlight">\(ELBO(x;Q,\theta) = log\,p(x;\theta)\)</span></p>
+<p>b.maximizing <span class="math notranslate nohighlight">\(ELBO(x;Q,\theta)\)</span> with respect to <span class="math notranslate nohighlight">\(\theta\)</span>.</p>
+<p>now consider multiple examples <span class="math notranslate nohighlight">\(\left\{x^{(1)},...,x^{(n)}\right\}\)</span>, note the optimal choice of <span class="math notranslate nohighlight">\(Q\)</span> is <span class="math notranslate nohighlight">\(p(z|x;\theta)\)</span>, and it depends on the particular example <span class="math notranslate nohighlight">\(x\)</span>.</p>
+<p>therefore we introduce <span class="math notranslate nohighlight">\(n\)</span> distributions <span class="math notranslate nohighlight">\(Q_{1},...,Q_{n}\)</span>, one for each example <span class="math notranslate nohighlight">\(x^{(i)}\)</span>, for each example:</p>
+<div class="math notranslate nohighlight">
+\[log\,p(x^{(i)};\theta) \ge ELBO(x^{(i)};Q_{i},\theta) = \sum_{z^{(i)}}Q_{i}(z^{(i)})log\frac{p(x^{(i)},z^{(i)};\theta)}{Q_{i}(z^{(i)})}\]</div>
+<p>taking sum over all examples, we obtain a lower bound for the log-likelihood:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{equation}
+\begin{split}
+l(\theta) \ge&amp; \sum_{i}ELBO(x^{(i)};Q_{i},\theta)\\
+=&amp; \sum_{i}\sum_{z^{(i)}}Q_{i}(z^{(i)})log\frac{p(x^{(i)},z^{(i)};\theta)}{Q_{i}(z^{(i)})}
+\end{split}
+\end{equation}
+\end{split}\]</div>
+<p>the above inequality holds for <strong>any</strong> distributions <span class="math notranslate nohighlight">\(Q_{1},...,Q_{n}\)</span>. equality holds when:</p>
+<div class="math notranslate nohighlight">
+\[Q_{i}(z^{(i)}) =  p(z^{(i)}|x^{(i)};\theta)\]</div>
+<p>we now come to the definition of EM algorithm:</p>
+<p>(E-step) for each <span class="math notranslate nohighlight">\(i\)</span>, set:</p>
+<div class="math notranslate nohighlight">
+\[Q_{i}(z^{(i)}) :=  p(z^{(i)}|x^{(i)};\theta)\]</div>
+<p>(M-step) for fixed <span class="math notranslate nohighlight">\(Q_{i}\)</span>’s, set:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{equation}
+\begin{split}
+\theta :=&amp; \underset{\theta}{argmax}\sum_{i=1}^{n}ELBO(x^{(i)};Q_{i},\theta)\\
+=&amp; \underset{\theta}{argmax}\sum_{i=1}^{n}\sum_{z^{(i)}}Q_{i}(z^{(i)})log\frac{p(x^{(i)},z^{(i)};\theta)}{Q_{i}(z^{(i)})}
+\end{split}
+\end{equation}
+\end{split}\]</div>
+</div>
+<div class="section" id="convergence-of-em-algorithm">
+<h2><span class="section-number">13.3. </span>Convergence of EM algorithm<a class="headerlink" href="#convergence-of-em-algorithm" title="Permalink to this headline">¶</a></h2>
+<p>suppose <span class="math notranslate nohighlight">\(\theta^{(t)}\)</span> and <span class="math notranslate nohighlight">\(\theta^{(t+1)}\)</span> are the parameters from two successive iterations of EM, we will now prove that <span class="math notranslate nohighlight">\(l(\theta^{(t)}) \le l(\theta^{(t+1)})\)</span>.</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{equation}
+\begin{split}
+l(\theta^{(t+1)}) \ge&amp; \sum_{i=1}^{n}ELBO(x^{(i)};Q_{i}^{(t)};\theta^{(t+1)})\quad (\mbox{by Jensen's inequality})\\
+\ge&amp; \sum_{i=1}^{n}ELBO(x^{(i)};Q_{i}^{(t)};\theta^{(t)})\quad (\mbox{by M-step}) \\
+=&amp; l(\theta^{(t)})\quad (\mbox{by E-step})
+\end{split}
+\end{equation}
+\end{split}\]</div>
+<p>if we define:</p>
+<div class="math notranslate nohighlight">
+\[ELBO(Q, \theta) = \sum_{i=1}^{n}ELBO(x^{(i)}; Q_{i}, \theta)\]</div>
+<p>then we know <span class="math notranslate nohighlight">\(l(\theta) \ge ELBO(Q, \theta)\)</span>.</p>
+<p>the EM algorithm can be viewed an alternating maximization algorithm on <span class="math notranslate nohighlight">\(ELBO(Q, \theta)\)</span>:</p>
+<p>the E-step maximizes it with respect to <span class="math notranslate nohighlight">\(Q\)</span>.</p>
+<p>the M-steo maximizes it with respect to <span class="math notranslate nohighlight">\(\theta\)</span>.</p>
+</div>
+<div class="section" id="bayesian-gaussian-mixture-models">
+<h2><span class="section-number">13.4. </span>Bayesian Gaussian Mixture Models<a class="headerlink" href="#bayesian-gaussian-mixture-models" title="Permalink to this headline">¶</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.mixture</span> <span class="kn">import</span> <span class="n">BayesianGaussianMixture</span>
+
+<span class="n">bgm</span> <span class="o">=</span> <span class="n">BayesianGaussianMixture</span><span class="p">(</span><span class="n">n_components</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">n_init</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+<span class="n">bgm</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+<span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="n">bgm</span><span class="o">.</span><span class="n">weights_</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([0.4, 0.2, 0.4, 0. , 0. , 0. , 0. , 0. , 0. , 0. ])
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="excercises">
+<h2><span class="section-number">13.5. </span>Excercises<a class="headerlink" href="#excercises" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="clustering">
+<h3><span class="section-number">13.5.1. </span>1.clustering<a class="headerlink" href="#clustering" title="Permalink to this headline">¶</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.datasets</span> <span class="kn">import</span> <span class="n">fetch_olivetti_faces</span>
+
+<span class="n">olivetti</span> <span class="o">=</span> <span class="n">fetch_olivetti_faces</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">olivetti</span><span class="o">.</span><span class="n">DESCR</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>.. _olivetti_faces_dataset:
+
+The Olivetti faces dataset
+--------------------------
+
+`This dataset contains a set of face images`_ taken between April 1992 and 
+April 1994 at AT&amp;T Laboratories Cambridge. The
+:func:`sklearn.datasets.fetch_olivetti_faces` function is the data
+fetching / caching function that downloads the data
+archive from AT&amp;T.
+
+.. _This dataset contains a set of face images: http://www.cl.cam.ac.uk/research/dtg/attarchive/facedatabase.html
+
+As described on the original website:
+
+    There are ten different images of each of 40 distinct subjects. For some
+    subjects, the images were taken at different times, varying the lighting,
+    facial expressions (open / closed eyes, smiling / not smiling) and facial
+    details (glasses / no glasses). All the images were taken against a dark
+    homogeneous background with the subjects in an upright, frontal position 
+    (with tolerance for some side movement).
+
+**Data Set Characteristics:**
+
+    =================   =====================
+    Classes                                40
+    Samples total                         400
+    Dimensionality                       4096
+    Features            real, between 0 and 1
+    =================   =====================
+
+The image is quantized to 256 grey levels and stored as unsigned 8-bit 
+integers; the loader will convert these to floating point values on the 
+interval [0, 1], which are easier to work with for many algorithms.
+
+The &quot;target&quot; for this database is an integer from 0 to 39 indicating the
+identity of the person pictured; however, with only 10 examples per class, this
+relatively small dataset is more interesting from an unsupervised or
+semi-supervised perspective.
+
+The original dataset consisted of 92 x 112, while the version available here
+consists of 64x64 images.
+
+When using these images, please give credit to AT&amp;T Laboratories Cambridge.
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">olivetti</span><span class="o">.</span><span class="n">target</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([ 0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  1,  1,  1,  1,  1,  1,  1,
+        1,  1,  1,  2,  2,  2,  2,  2,  2,  2,  2,  2,  2,  3,  3,  3,  3,
+        3,  3,  3,  3,  3,  3,  4,  4,  4,  4,  4,  4,  4,  4,  4,  4,  5,
+        5,  5,  5,  5,  5,  5,  5,  5,  5,  6,  6,  6,  6,  6,  6,  6,  6,
+        6,  6,  7,  7,  7,  7,  7,  7,  7,  7,  7,  7,  8,  8,  8,  8,  8,
+        8,  8,  8,  8,  8,  9,  9,  9,  9,  9,  9,  9,  9,  9,  9, 10, 10,
+       10, 10, 10, 10, 10, 10, 10, 10, 11, 11, 11, 11, 11, 11, 11, 11, 11,
+       11, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 13, 13, 13, 13, 13, 13,
+       13, 13, 13, 13, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 15, 15, 15,
+       15, 15, 15, 15, 15, 15, 15, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16,
+       17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 18, 18, 18, 18, 18, 18, 18,
+       18, 18, 18, 19, 19, 19, 19, 19, 19, 19, 19, 19, 19, 20, 20, 20, 20,
+       20, 20, 20, 20, 20, 20, 21, 21, 21, 21, 21, 21, 21, 21, 21, 21, 22,
+       22, 22, 22, 22, 22, 22, 22, 22, 22, 23, 23, 23, 23, 23, 23, 23, 23,
+       23, 23, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 25, 25, 25, 25, 25,
+       25, 25, 25, 25, 25, 26, 26, 26, 26, 26, 26, 26, 26, 26, 26, 27, 27,
+       27, 27, 27, 27, 27, 27, 27, 27, 28, 28, 28, 28, 28, 28, 28, 28, 28,
+       28, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 30, 30, 30, 30, 30, 30,
+       30, 30, 30, 30, 31, 31, 31, 31, 31, 31, 31, 31, 31, 31, 32, 32, 32,
+       32, 32, 32, 32, 32, 32, 32, 33, 33, 33, 33, 33, 33, 33, 33, 33, 33,
+       34, 34, 34, 34, 34, 34, 34, 34, 34, 34, 35, 35, 35, 35, 35, 35, 35,
+       35, 35, 35, 36, 36, 36, 36, 36, 36, 36, 36, 36, 36, 37, 37, 37, 37,
+       37, 37, 37, 37, 37, 37, 38, 38, 38, 38, 38, 38, 38, 38, 38, 38, 39,
+       39, 39, 39, 39, 39, 39, 39, 39, 39])
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">StratifiedShuffleSplit</span>
+
+<span class="n">strat_split</span> <span class="o">=</span> <span class="n">StratifiedShuffleSplit</span><span class="p">(</span><span class="n">n_splits</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">test_size</span><span class="o">=</span><span class="mi">40</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
+<span class="n">train_valid_idx</span><span class="p">,</span> <span class="n">test_idx</span> <span class="o">=</span> <span class="nb">next</span><span class="p">(</span><span class="n">strat_split</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">olivetti</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> <span class="n">olivetti</span><span class="o">.</span><span class="n">target</span><span class="p">))</span>
+<span class="n">X_train_valid</span> <span class="o">=</span> <span class="n">olivetti</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">train_valid_idx</span><span class="p">]</span>
+<span class="n">y_train_valid</span> <span class="o">=</span> <span class="n">olivetti</span><span class="o">.</span><span class="n">target</span><span class="p">[</span><span class="n">train_valid_idx</span><span class="p">]</span>
+<span class="n">X_test</span> <span class="o">=</span> <span class="n">olivetti</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">test_idx</span><span class="p">]</span>
+<span class="n">y_test</span> <span class="o">=</span> <span class="n">olivetti</span><span class="o">.</span><span class="n">target</span><span class="p">[</span><span class="n">test_idx</span><span class="p">]</span>
+
+<span class="n">strat_split</span> <span class="o">=</span> <span class="n">StratifiedShuffleSplit</span><span class="p">(</span><span class="n">n_splits</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">test_size</span><span class="o">=</span><span class="mi">80</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">43</span><span class="p">)</span>
+<span class="n">train_idx</span><span class="p">,</span> <span class="n">valid_idx</span> <span class="o">=</span> <span class="nb">next</span><span class="p">(</span><span class="n">strat_split</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">X_train_valid</span><span class="p">,</span> <span class="n">y_train_valid</span><span class="p">))</span>
+<span class="n">X_train</span> <span class="o">=</span> <span class="n">X_train_valid</span><span class="p">[</span><span class="n">train_idx</span><span class="p">]</span>
+<span class="n">y_train</span> <span class="o">=</span> <span class="n">y_train_valid</span><span class="p">[</span><span class="n">train_idx</span><span class="p">]</span>
+<span class="n">X_valid</span> <span class="o">=</span> <span class="n">X_train_valid</span><span class="p">[</span><span class="n">valid_idx</span><span class="p">]</span>
+<span class="n">y_valid</span> <span class="o">=</span> <span class="n">y_train_valid</span><span class="p">[</span><span class="n">valid_idx</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">X_train</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="n">y_train</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">X_valid</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="n">y_valid</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">X_test</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="n">y_test</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(280, 4096) (280,)
+(80, 4096) (80,)
+(40, 4096) (40,)
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.decomposition</span> <span class="kn">import</span> <span class="n">PCA</span>
+
+<span class="n">pca</span> <span class="o">=</span> <span class="n">PCA</span><span class="p">(</span><span class="mf">0.99</span><span class="p">)</span>
+<span class="n">X_train_pca</span> <span class="o">=</span> <span class="n">pca</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">X_train</span><span class="p">)</span>
+<span class="n">X_valid_pca</span> <span class="o">=</span> <span class="n">pca</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">X_valid</span><span class="p">)</span>
+<span class="n">X_test_pca</span> <span class="o">=</span> <span class="n">pca</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">X_test</span><span class="p">)</span>
+
+<span class="n">pca</span><span class="o">.</span><span class="n">n_components_</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>199
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.cluster</span> <span class="kn">import</span> <span class="n">KMeans</span>
+
+<span class="n">k_range</span> <span class="o">=</span> <span class="nb">range</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">150</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span>
+<span class="n">kmeans_per_k</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">k_range</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;k=</span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">k</span><span class="p">))</span>
+    <span class="n">kmeans</span> <span class="o">=</span> <span class="n">KMeans</span><span class="p">(</span><span class="n">n_clusters</span><span class="o">=</span><span class="n">k</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train_pca</span><span class="p">)</span>
+    <span class="n">kmeans_per_k</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">kmeans</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>k=5
+k=10
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>k=15
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>k=20
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>k=25
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>k=30
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>k=35
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>k=40
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>k=45
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>k=50
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>k=55
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>k=60
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>k=65
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>k=70
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>k=75
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>k=80
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>k=85
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>k=90
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>k=95
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>k=100
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>k=105
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>k=110
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>k=115
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>k=120
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>k=125
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>k=130
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>k=135
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>k=140
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>k=145
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">silhouette_score</span>
+
+<span class="n">silhouette_scores</span> <span class="o">=</span> <span class="p">[</span><span class="n">silhouette_score</span><span class="p">(</span><span class="n">X_train_pca</span><span class="p">,</span> <span class="n">model</span><span class="o">.</span><span class="n">labels_</span><span class="p">)</span>
+                     <span class="k">for</span> <span class="n">model</span> <span class="ow">in</span> <span class="n">kmeans_per_k</span><span class="p">]</span>
+<span class="n">best_index</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">silhouette_scores</span><span class="p">)</span>
+<span class="n">best_k</span> <span class="o">=</span> <span class="n">k_range</span><span class="p">[</span><span class="n">best_index</span><span class="p">]</span>
+<span class="n">best_score</span> <span class="o">=</span> <span class="n">silhouette_scores</span><span class="p">[</span><span class="n">best_index</span><span class="p">]</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">3</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">k_range</span><span class="p">,</span> <span class="n">silhouette_scores</span><span class="p">,</span> <span class="s2">&quot;bo-&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;$k$&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">14</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;Silhouette score&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">14</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">best_k</span><span class="p">,</span> <span class="n">best_score</span><span class="p">,</span> <span class="s2">&quot;rs&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/13_EM_28_0.png" src="_images/13_EM_28_0.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">best_k</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>100
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">inertias</span> <span class="o">=</span> <span class="p">[</span><span class="n">model</span><span class="o">.</span><span class="n">inertia_</span> <span class="k">for</span> <span class="n">model</span> <span class="ow">in</span> <span class="n">kmeans_per_k</span><span class="p">]</span>
+<span class="n">best_inertia</span> <span class="o">=</span> <span class="n">inertias</span><span class="p">[</span><span class="n">best_index</span><span class="p">]</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mf">3.5</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">k_range</span><span class="p">,</span> <span class="n">inertias</span><span class="p">,</span> <span class="s2">&quot;bo-&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;$k$&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">14</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;Inertia&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">14</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">best_k</span><span class="p">,</span> <span class="n">best_inertia</span><span class="p">,</span> <span class="s2">&quot;rs&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/13_EM_30_0.png" src="_images/13_EM_30_0.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">best_model</span> <span class="o">=</span> <span class="n">kmeans_per_k</span><span class="p">[</span><span class="n">best_index</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">plot_faces</span><span class="p">(</span><span class="n">faces</span><span class="p">,</span> <span class="n">labels</span><span class="p">,</span> <span class="n">n_cols</span><span class="o">=</span><span class="mi">5</span><span class="p">):</span>
+    <span class="n">faces</span> <span class="o">=</span> <span class="n">faces</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">64</span><span class="p">,</span> <span class="mi">64</span><span class="p">)</span>
+    <span class="n">n_rows</span> <span class="o">=</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">faces</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">//</span> <span class="n">n_cols</span> <span class="o">+</span> <span class="mi">1</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="n">n_cols</span><span class="p">,</span> <span class="n">n_rows</span> <span class="o">*</span> <span class="mf">1.1</span><span class="p">))</span>
+    <span class="k">for</span> <span class="n">index</span><span class="p">,</span> <span class="p">(</span><span class="n">face</span><span class="p">,</span> <span class="n">label</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">faces</span><span class="p">,</span> <span class="n">labels</span><span class="p">)):</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="n">n_rows</span><span class="p">,</span> <span class="n">n_cols</span><span class="p">,</span> <span class="n">index</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">face</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s2">&quot;gray&quot;</span><span class="p">)</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s2">&quot;off&quot;</span><span class="p">)</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="n">label</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+
+<span class="k">for</span> <span class="n">cluster_id</span> <span class="ow">in</span> <span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">best_model</span><span class="o">.</span><span class="n">labels_</span><span class="p">):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Cluster&quot;</span><span class="p">,</span> <span class="n">cluster_id</span><span class="p">)</span>
+    <span class="n">in_cluster</span> <span class="o">=</span> <span class="n">best_model</span><span class="o">.</span><span class="n">labels_</span><span class="o">==</span><span class="n">cluster_id</span>
+    <span class="n">faces</span> <span class="o">=</span> <span class="n">X_train</span><span class="p">[</span><span class="n">in_cluster</span><span class="p">]</span>
+    <span class="n">labels</span> <span class="o">=</span> <span class="n">y_train</span><span class="p">[</span><span class="n">in_cluster</span><span class="p">]</span>
+    <span class="n">plot_faces</span><span class="p">(</span><span class="n">faces</span><span class="p">,</span> <span class="n">labels</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Cluster 0
+</pre></div>
+</div>
+<img alt="_images/13_EM_32_1.png" src="_images/13_EM_32_1.png" />
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Cluster 1
+</pre></div>
+</div>
+<img alt="_images/13_EM_32_3.png" src="_images/13_EM_32_3.png" />
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Cluster 2
+</pre></div>
+</div>
+<img alt="_images/13_EM_32_5.png" src="_images/13_EM_32_5.png" />
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Cluster 3
+</pre></div>
+</div>
+<img alt="_images/13_EM_32_7.png" src="_images/13_EM_32_7.png" />
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Cluster 4
+</pre></div>
+</div>
+<img alt="_images/13_EM_32_9.png" src="_images/13_EM_32_9.png" />
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Cluster 5
+</pre></div>
+</div>
+<img alt="_images/13_EM_32_11.png" src="_images/13_EM_32_11.png" />
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Cluster 6
+</pre></div>
+</div>
+<img alt="_images/13_EM_32_13.png" src="_images/13_EM_32_13.png" />
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Cluster 7
+</pre></div>
+</div>
+<img alt="_images/13_EM_32_15.png" src="_images/13_EM_32_15.png" />
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Cluster 8
+</pre></div>
+</div>
+<img alt="_images/13_EM_32_17.png" src="_images/13_EM_32_17.png" />
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Cluster 9
+</pre></div>
+</div>
+<img alt="_images/13_EM_32_19.png" src="_images/13_EM_32_19.png" />
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Cluster 10
+</pre></div>
+</div>
+<img alt="_images/13_EM_32_21.png" src="_images/13_EM_32_21.png" />
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Cluster 11
+</pre></div>
+</div>
+<img alt="_images/13_EM_32_23.png" src="_images/13_EM_32_23.png" />
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Cluster 12
+</pre></div>
+</div>
+<img alt="_images/13_EM_32_25.png" src="_images/13_EM_32_25.png" />
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Cluster 13
+</pre></div>
+</div>
+<img alt="_images/13_EM_32_27.png" src="_images/13_EM_32_27.png" />
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Cluster 14
+</pre></div>
+</div>
+<img alt="_images/13_EM_32_29.png" src="_images/13_EM_32_29.png" />
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Cluster 15
+</pre></div>
+</div>
+<img alt="_images/13_EM_32_31.png" src="_images/13_EM_32_31.png" />
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Cluster 16
+</pre></div>
+</div>
+<img alt="_images/13_EM_32_33.png" src="_images/13_EM_32_33.png" />
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Cluster 17
+</pre></div>
+</div>
+<img alt="_images/13_EM_32_35.png" src="_images/13_EM_32_35.png" />
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Cluster 18
+</pre></div>
+</div>
+<img alt="_images/13_EM_32_37.png" src="_images/13_EM_32_37.png" />
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Cluster 19
+</pre></div>
+</div>
+<img alt="_images/13_EM_32_39.png" src="_images/13_EM_32_39.png" />
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Cluster 20
+</pre></div>
+</div>
+<img alt="_images/13_EM_32_41.png" src="_images/13_EM_32_41.png" />
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Cluster 21
+</pre></div>
+</div>
+<img alt="_images/13_EM_32_43.png" src="_images/13_EM_32_43.png" />
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Cluster 
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>22
+</pre></div>
+</div>
+<img alt="_images/13_EM_32_46.png" src="_images/13_EM_32_46.png" />
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Cluster 23
+</pre></div>
+</div>
+<img alt="_images/13_EM_32_48.png" src="_images/13_EM_32_48.png" />
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Cluster 24
+</pre></div>
+</div>
+<img alt="_images/13_EM_32_50.png" src="_images/13_EM_32_50.png" />
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Cluster 25
+</pre></div>
+</div>
+<img alt="_images/13_EM_32_52.png" src="_images/13_EM_32_52.png" />
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Cluster 26
+</pre></div>
+</div>
+<img alt="_images/13_EM_32_54.png" src="_images/13_EM_32_54.png" />
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Cluster 27
+</pre></div>
+</div>
+<img alt="_images/13_EM_32_56.png" src="_images/13_EM_32_56.png" />
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Cluster 28
+</pre></div>
+</div>
+<img alt="_images/13_EM_32_58.png" src="_images/13_EM_32_58.png" />
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Cluster 29
+</pre></div>
+</div>
+<img alt="_images/13_EM_32_60.png" src="_images/13_EM_32_60.png" />
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Cluster 30
+</pre></div>
+</div>
+<img alt="_images/13_EM_32_62.png" src="_images/13_EM_32_62.png" />
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Cluster 31
+</pre></div>
+</div>
+<img alt="_images/13_EM_32_64.png" src="_images/13_EM_32_64.png" />
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Cluster 32
+</pre></div>
+</div>
+<img alt="_images/13_EM_32_66.png" src="_images/13_EM_32_66.png" />
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Cluster 33
+</pre></div>
+</div>
+<img alt="_images/13_EM_32_68.png" src="_images/13_EM_32_68.png" />
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Cluster 34
+</pre></div>
+</div>
+<img alt="_images/13_EM_32_70.png" src="_images/13_EM_32_70.png" />
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Cluster 35
+</pre></div>
+</div>
+<img alt="_images/13_EM_32_72.png" src="_images/13_EM_32_72.png" />
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Cluster 36
+</pre></div>
+</div>
+<img alt="_images/13_EM_32_74.png" src="_images/13_EM_32_74.png" />
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Cluster 37
+</pre></div>
+</div>
+<img alt="_images/13_EM_32_76.png" src="_images/13_EM_32_76.png" />
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Cluster 38
+</pre></div>
+</div>
+<img alt="_images/13_EM_32_78.png" src="_images/13_EM_32_78.png" />
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Cluster 39
+</pre></div>
+</div>
+<img alt="_images/13_EM_32_80.png" src="_images/13_EM_32_80.png" />
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Cluster 40
+</pre></div>
+</div>
+<img alt="_images/13_EM_32_82.png" src="_images/13_EM_32_82.png" />
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Cluster 41
+</pre></div>
+</div>
+<img alt="_images/13_EM_32_84.png" src="_images/13_EM_32_84.png" />
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Cluster 42
+</pre></div>
+</div>
+<img alt="_images/13_EM_32_86.png" src="_images/13_EM_32_86.png" />
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Cluster 43
+</pre></div>
+</div>
+<img alt="_images/13_EM_32_88.png" src="_images/13_EM_32_88.png" />
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Cluster 44
+</pre></div>
+</div>
+<img alt="_images/13_EM_32_90.png" src="_images/13_EM_32_90.png" />
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Cluster 45
+</pre></div>
+</div>
+<img alt="_images/13_EM_32_92.png" src="_images/13_EM_32_92.png" />
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Cluster 46
+</pre></div>
+</div>
+<img alt="_images/13_EM_32_94.png" src="_images/13_EM_32_94.png" />
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Cluster 47
+</pre></div>
+</div>
+<img alt="_images/13_EM_32_96.png" src="_images/13_EM_32_96.png" />
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Cluster 48
+</pre></div>
+</div>
+<img alt="_images/13_EM_32_98.png" src="_images/13_EM_32_98.png" />
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Cluster 49
+</pre></div>
+</div>
+<img alt="_images/13_EM_32_100.png" src="_images/13_EM_32_100.png" />
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Cluster 50
+</pre></div>
+</div>
+<img alt="_images/13_EM_32_102.png" src="_images/13_EM_32_102.png" />
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Cluster 51
+</pre></div>
+</div>
+<img alt="_images/13_EM_32_104.png" src="_images/13_EM_32_104.png" />
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Cluster 52
+</pre></div>
+</div>
+<img alt="_images/13_EM_32_106.png" src="_images/13_EM_32_106.png" />
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Cluster 53
+</pre></div>
+</div>
+<img alt="_images/13_EM_32_108.png" src="_images/13_EM_32_108.png" />
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Cluster 54
+</pre></div>
+</div>
+<img alt="_images/13_EM_32_110.png" src="_images/13_EM_32_110.png" />
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Cluster 55
+</pre></div>
+</div>
+<img alt="_images/13_EM_32_112.png" src="_images/13_EM_32_112.png" />
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Cluster 56
+</pre></div>
+</div>
+<img alt="_images/13_EM_32_114.png" src="_images/13_EM_32_114.png" />
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Cluster 57
+</pre></div>
+</div>
+<img alt="_images/13_EM_32_116.png" src="_images/13_EM_32_116.png" />
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Cluster 58
+</pre></div>
+</div>
+<img alt="_images/13_EM_32_118.png" src="_images/13_EM_32_118.png" />
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Cluster 59
+</pre></div>
+</div>
+<img alt="_images/13_EM_32_120.png" src="_images/13_EM_32_120.png" />
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Cluster 60
+</pre></div>
+</div>
+<img alt="_images/13_EM_32_122.png" src="_images/13_EM_32_122.png" />
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Cluster 61
+</pre></div>
+</div>
+<img alt="_images/13_EM_32_124.png" src="_images/13_EM_32_124.png" />
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Cluster 62
+</pre></div>
+</div>
+<img alt="_images/13_EM_32_126.png" src="_images/13_EM_32_126.png" />
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Cluster 63
+</pre></div>
+</div>
+<img alt="_images/13_EM_32_128.png" src="_images/13_EM_32_128.png" />
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Cluster 64
+</pre></div>
+</div>
+<img alt="_images/13_EM_32_130.png" src="_images/13_EM_32_130.png" />
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Cluster 65
+</pre></div>
+</div>
+<img alt="_images/13_EM_32_132.png" src="_images/13_EM_32_132.png" />
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Cluster 66
+</pre></div>
+</div>
+<img alt="_images/13_EM_32_134.png" src="_images/13_EM_32_134.png" />
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Cluster 67
+</pre></div>
+</div>
+<img alt="_images/13_EM_32_136.png" src="_images/13_EM_32_136.png" />
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Cluster 68
+</pre></div>
+</div>
+<img alt="_images/13_EM_32_138.png" src="_images/13_EM_32_138.png" />
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Cluster 69
+</pre></div>
+</div>
+<img alt="_images/13_EM_32_140.png" src="_images/13_EM_32_140.png" />
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Cluster 70
+</pre></div>
+</div>
+<img alt="_images/13_EM_32_142.png" src="_images/13_EM_32_142.png" />
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Cluster 71
+</pre></div>
+</div>
+<img alt="_images/13_EM_32_144.png" src="_images/13_EM_32_144.png" />
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Cluster 72
+</pre></div>
+</div>
+<img alt="_images/13_EM_32_146.png" src="_images/13_EM_32_146.png" />
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Cluster 73
+</pre></div>
+</div>
+<img alt="_images/13_EM_32_148.png" src="_images/13_EM_32_148.png" />
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Cluster 74
+</pre></div>
+</div>
+<img alt="_images/13_EM_32_150.png" src="_images/13_EM_32_150.png" />
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Cluster 75
+</pre></div>
+</div>
+<img alt="_images/13_EM_32_152.png" src="_images/13_EM_32_152.png" />
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Cluster 76
+</pre></div>
+</div>
+<img alt="_images/13_EM_32_154.png" src="_images/13_EM_32_154.png" />
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Cluster 77
+</pre></div>
+</div>
+<img alt="_images/13_EM_32_156.png" src="_images/13_EM_32_156.png" />
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Cluster 78
+</pre></div>
+</div>
+<img alt="_images/13_EM_32_158.png" src="_images/13_EM_32_158.png" />
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Cluster 79
+</pre></div>
+</div>
+<img alt="_images/13_EM_32_160.png" src="_images/13_EM_32_160.png" />
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Cluster 80
+</pre></div>
+</div>
+<img alt="_images/13_EM_32_162.png" src="_images/13_EM_32_162.png" />
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Cluster 81
+</pre></div>
+</div>
+<img alt="_images/13_EM_32_164.png" src="_images/13_EM_32_164.png" />
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Cluster 82
+</pre></div>
+</div>
+<img alt="_images/13_EM_32_166.png" src="_images/13_EM_32_166.png" />
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Cluster 83
+</pre></div>
+</div>
+<img alt="_images/13_EM_32_168.png" src="_images/13_EM_32_168.png" />
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Cluster 84
+</pre></div>
+</div>
+<img alt="_images/13_EM_32_170.png" src="_images/13_EM_32_170.png" />
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Cluster 85
+</pre></div>
+</div>
+<img alt="_images/13_EM_32_172.png" src="_images/13_EM_32_172.png" />
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Cluster 86
+</pre></div>
+</div>
+<img alt="_images/13_EM_32_174.png" src="_images/13_EM_32_174.png" />
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Cluster 87
+</pre></div>
+</div>
+<img alt="_images/13_EM_32_176.png" src="_images/13_EM_32_176.png" />
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Cluster 88
+</pre></div>
+</div>
+<img alt="_images/13_EM_32_178.png" src="_images/13_EM_32_178.png" />
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Cluster 89
+</pre></div>
+</div>
+<img alt="_images/13_EM_32_180.png" src="_images/13_EM_32_180.png" />
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Cluster 90
+</pre></div>
+</div>
+<img alt="_images/13_EM_32_182.png" src="_images/13_EM_32_182.png" />
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Cluster 91
+</pre></div>
+</div>
+<img alt="_images/13_EM_32_184.png" src="_images/13_EM_32_184.png" />
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Cluster 92
+</pre></div>
+</div>
+<img alt="_images/13_EM_32_186.png" src="_images/13_EM_32_186.png" />
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Cluster 93
+</pre></div>
+</div>
+<img alt="_images/13_EM_32_188.png" src="_images/13_EM_32_188.png" />
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Cluster 94
+</pre></div>
+</div>
+<img alt="_images/13_EM_32_190.png" src="_images/13_EM_32_190.png" />
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Cluster 95
+</pre></div>
+</div>
+<img alt="_images/13_EM_32_192.png" src="_images/13_EM_32_192.png" />
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Cluster 96
+</pre></div>
+</div>
+<img alt="_images/13_EM_32_194.png" src="_images/13_EM_32_194.png" />
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Cluster 97
+</pre></div>
+</div>
+<img alt="_images/13_EM_32_196.png" src="_images/13_EM_32_196.png" />
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Cluster 98
+</pre></div>
+</div>
+<img alt="_images/13_EM_32_198.png" src="_images/13_EM_32_198.png" />
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Cluster 99
+</pre></div>
+</div>
+<img alt="_images/13_EM_32_200.png" src="_images/13_EM_32_200.png" />
+</div>
+</div>
+</div>
+<div class="section" id="clustering-classification">
+<h3><span class="section-number">13.5.2. </span>2.clustering + classification<a class="headerlink" href="#clustering-classification" title="Permalink to this headline">¶</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.ensemble</span> <span class="kn">import</span> <span class="n">RandomForestClassifier</span>
+
+<span class="n">clf</span> <span class="o">=</span> <span class="n">RandomForestClassifier</span><span class="p">(</span><span class="n">n_estimators</span><span class="o">=</span><span class="mi">150</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
+<span class="n">clf</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train_pca</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
+<span class="n">clf</span><span class="o">.</span><span class="n">score</span><span class="p">(</span><span class="n">X_valid_pca</span><span class="p">,</span> <span class="n">y_valid</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.9
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">X_train_reduced</span> <span class="o">=</span> <span class="n">best_model</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">X_train_pca</span><span class="p">)</span>
+<span class="n">X_valid_reduced</span> <span class="o">=</span> <span class="n">best_model</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">X_valid_pca</span><span class="p">)</span>
+<span class="n">X_test_reduced</span> <span class="o">=</span> <span class="n">best_model</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">X_test_pca</span><span class="p">)</span>
+
+<span class="n">clf</span> <span class="o">=</span> <span class="n">RandomForestClassifier</span><span class="p">(</span><span class="n">n_estimators</span><span class="o">=</span><span class="mi">150</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
+<span class="n">clf</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train_reduced</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
+    
+<span class="n">clf</span><span class="o">.</span><span class="n">score</span><span class="p">(</span><span class="n">X_valid_reduced</span><span class="p">,</span> <span class="n">y_valid</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.75
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.pipeline</span> <span class="kn">import</span> <span class="n">Pipeline</span>
+
+<span class="k">for</span> <span class="n">n_clusters</span> <span class="ow">in</span> <span class="n">k_range</span><span class="p">:</span>
+    <span class="n">pipeline</span> <span class="o">=</span> <span class="n">Pipeline</span><span class="p">([</span>
+        <span class="p">(</span><span class="s2">&quot;kmeans&quot;</span><span class="p">,</span> <span class="n">KMeans</span><span class="p">(</span><span class="n">n_clusters</span><span class="o">=</span><span class="n">n_clusters</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)),</span>
+        <span class="p">(</span><span class="s2">&quot;forest_clf&quot;</span><span class="p">,</span> <span class="n">RandomForestClassifier</span><span class="p">(</span><span class="n">n_estimators</span><span class="o">=</span><span class="mi">150</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">))</span>
+    <span class="p">])</span>
+    <span class="n">pipeline</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train_pca</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">n_clusters</span><span class="p">,</span> <span class="n">pipeline</span><span class="o">.</span><span class="n">score</span><span class="p">(</span><span class="n">X_valid_pca</span><span class="p">,</span> <span class="n">y_valid</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>5 0.4125
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>10 0.525
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>15 0.5375
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>20 0.6375
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>25 0.65
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>30 0.6375
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>35 0.675
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>40 0.7375
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>45 0.725
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>50 0.75
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>55 0.7375
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>60 0.725
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>65 0.7375
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>70 0.725
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>75 0.725
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>80 0.775
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>85 0.7375
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>90 0.7375
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>95 0.75
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>100 0.75
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>105 0.75
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>110 0.7375
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>115 0.7375
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>120 0.75
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>125 0.75
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>130 0.725
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>135 0.75
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>140 0.7625
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>145 0.7375
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">X_train_extended</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">c_</span><span class="p">[</span><span class="n">X_train_pca</span><span class="p">,</span> <span class="n">X_train_reduced</span><span class="p">]</span>
+<span class="n">X_valid_extended</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">c_</span><span class="p">[</span><span class="n">X_valid_pca</span><span class="p">,</span> <span class="n">X_valid_reduced</span><span class="p">]</span>
+<span class="n">X_test_extended</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">c_</span><span class="p">[</span><span class="n">X_test_pca</span><span class="p">,</span> <span class="n">X_test_reduced</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">clf</span> <span class="o">=</span> <span class="n">RandomForestClassifier</span><span class="p">(</span><span class="n">n_estimators</span><span class="o">=</span><span class="mi">150</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
+<span class="n">clf</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train_extended</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
+<span class="n">clf</span><span class="o">.</span><span class="n">score</span><span class="p">(</span><span class="n">X_valid_extended</span><span class="p">,</span> <span class="n">y_valid</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.825
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="gaussian-mixture-model">
+<h3><span class="section-number">13.5.3. </span>3.Gaussian Mixture Model<a class="headerlink" href="#gaussian-mixture-model" title="Permalink to this headline">¶</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.mixture</span> <span class="kn">import</span> <span class="n">GaussianMixture</span>
+
+<span class="n">gm</span> <span class="o">=</span> <span class="n">GaussianMixture</span><span class="p">(</span><span class="n">n_components</span><span class="o">=</span><span class="mi">40</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
+<span class="n">y_pred</span> <span class="o">=</span> <span class="n">gm</span><span class="o">.</span><span class="n">fit_predict</span><span class="p">(</span><span class="n">X_train_pca</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">n_gen_faces</span> <span class="o">=</span> <span class="mi">20</span>
+<span class="n">gen_faces_reduced</span><span class="p">,</span> <span class="n">y_gen_faces</span> <span class="o">=</span> <span class="n">gm</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="n">n_samples</span><span class="o">=</span><span class="n">n_gen_faces</span><span class="p">)</span>
+<span class="n">gen_faces</span> <span class="o">=</span> <span class="n">pca</span><span class="o">.</span><span class="n">inverse_transform</span><span class="p">(</span><span class="n">gen_faces_reduced</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plot_faces</span><span class="p">(</span><span class="n">gen_faces</span><span class="p">,</span> <span class="n">y_gen_faces</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/13_EM_42_0.png" src="_images/13_EM_42_0.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">n_rotated</span> <span class="o">=</span> <span class="mi">4</span>
+<span class="n">rotated</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">transpose</span><span class="p">(</span><span class="n">X_train</span><span class="p">[:</span><span class="n">n_rotated</span><span class="p">]</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">64</span><span class="p">,</span> <span class="mi">64</span><span class="p">),</span> <span class="n">axes</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span>
+<span class="n">rotated</span> <span class="o">=</span> <span class="n">rotated</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">64</span><span class="o">*</span><span class="mi">64</span><span class="p">)</span>
+<span class="n">y_rotated</span> <span class="o">=</span> <span class="n">y_train</span><span class="p">[:</span><span class="n">n_rotated</span><span class="p">]</span>
+
+<span class="n">n_flipped</span> <span class="o">=</span> <span class="mi">3</span>
+<span class="n">flipped</span> <span class="o">=</span> <span class="n">X_train</span><span class="p">[:</span><span class="n">n_flipped</span><span class="p">]</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">64</span><span class="p">,</span> <span class="mi">64</span><span class="p">)[:,</span> <span class="p">::</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+<span class="n">flipped</span> <span class="o">=</span> <span class="n">flipped</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">64</span><span class="o">*</span><span class="mi">64</span><span class="p">)</span>
+<span class="n">y_flipped</span> <span class="o">=</span> <span class="n">y_train</span><span class="p">[:</span><span class="n">n_flipped</span><span class="p">]</span>
+
+<span class="n">n_darkened</span> <span class="o">=</span> <span class="mi">3</span>
+<span class="n">darkened</span> <span class="o">=</span> <span class="n">X_train</span><span class="p">[:</span><span class="n">n_darkened</span><span class="p">]</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+<span class="n">darkened</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">*=</span> <span class="mf">0.3</span>
+<span class="n">y_darkened</span> <span class="o">=</span> <span class="n">y_train</span><span class="p">[:</span><span class="n">n_darkened</span><span class="p">]</span>
+
+<span class="n">X_bad_faces</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">r_</span><span class="p">[</span><span class="n">rotated</span><span class="p">,</span> <span class="n">flipped</span><span class="p">,</span> <span class="n">darkened</span><span class="p">]</span>
+<span class="n">y_bad</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">([</span><span class="n">y_rotated</span><span class="p">,</span> <span class="n">y_flipped</span><span class="p">,</span> <span class="n">y_darkened</span><span class="p">])</span>
+
+<span class="n">plot_faces</span><span class="p">(</span><span class="n">X_bad_faces</span><span class="p">,</span> <span class="n">y_bad</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/13_EM_43_0.png" src="_images/13_EM_43_0.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">X_bad_faces_pca</span> <span class="o">=</span> <span class="n">pca</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">X_bad_faces</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">gm</span><span class="o">.</span><span class="n">score_samples</span><span class="p">(</span><span class="n">X_bad_faces_pca</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([-1.79997608e+07, -2.26427362e+07, -3.96415796e+07, -4.60254473e+07,
+       -3.13975480e+07, -1.39330097e+07, -2.90882934e+07, -1.06298630e+08,
+       -1.20931038e+08, -7.49740018e+07])
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">gm</span><span class="o">.</span><span class="n">score_samples</span><span class="p">(</span><span class="n">X_train_pca</span><span class="p">[:</span><span class="mi">10</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([1163.02020829, 1149.16682301, 1148.4771048 , 1170.67602911,
+       1088.46009667, 1075.71700506, 1075.71700941, 1088.46009043,
+       1096.42609831, 1119.68626972])
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="using-dimensionality-reduction-techniques-for-anomaly-detection">
+<h3><span class="section-number">13.5.4. </span>4.Using Dimensionality Reduction Techniques for Anomaly Detection<a class="headerlink" href="#using-dimensionality-reduction-techniques-for-anomaly-detection" title="Permalink to this headline">¶</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">X_train_pca</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[ 3.78081155e+00, -1.85478592e+00, -5.14403152e+00, ...,
+        -1.35633737e-01, -2.14073911e-01,  6.11903071e-02],
+       [ 1.01488495e+01, -1.52754211e+00, -7.66985953e-01, ...,
+         1.23929359e-01, -1.35271430e-01, -2.32755654e-02],
+       [-1.00152874e+01,  2.87729216e+00, -9.19888496e-01, ...,
+         7.26100877e-02, -2.96541513e-03,  1.24894865e-01],
+       ...,
+       [ 2.47586823e+00,  2.95597267e+00,  1.29985225e+00, ...,
+        -2.09113210e-02,  3.48522142e-02, -1.54324114e-01],
+       [-3.22032285e+00,  5.34897947e+00,  1.39426553e+00, ...,
+         5.75459711e-02, -2.28310019e-01,  1.55576393e-01],
+       [-9.22876477e-01, -3.64702559e+00,  2.26088238e+00, ...,
+         1.36850551e-01, -6.91333413e-02,  6.26837164e-02]], dtype=float32)
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">reconstruction_errors</span><span class="p">(</span><span class="n">pca</span><span class="p">,</span> <span class="n">X</span><span class="p">):</span>
+    <span class="n">X_pca</span> <span class="o">=</span> <span class="n">pca</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+    <span class="n">X_reconstructed</span> <span class="o">=</span> <span class="n">pca</span><span class="o">.</span><span class="n">inverse_transform</span><span class="p">(</span><span class="n">X_pca</span><span class="p">)</span>
+    <span class="n">mse</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">square</span><span class="p">(</span><span class="n">X_reconstructed</span> <span class="o">-</span> <span class="n">X</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">axis</span><span class="o">=-</span><span class="mi">1</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">mse</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">reconstruction_errors</span><span class="p">(</span><span class="n">pca</span><span class="p">,</span> <span class="n">X_train</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.0001920535
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">reconstruction_errors</span><span class="p">(</span><span class="n">pca</span><span class="p">,</span> <span class="n">X_bad_faces</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.0047073546
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plot_faces</span><span class="p">(</span><span class="n">X_bad_faces</span><span class="p">,</span> <span class="n">y_bad</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/13_EM_52_0.png" src="_images/13_EM_52_0.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">X_bad_faces_reconstructed</span> <span class="o">=</span> <span class="n">pca</span><span class="o">.</span><span class="n">inverse_transform</span><span class="p">(</span><span class="n">X_bad_faces_pca</span><span class="p">)</span>
+<span class="n">plot_faces</span><span class="p">(</span><span class="n">X_bad_faces_reconstructed</span><span class="p">,</span> <span class="n">y_bad</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/13_EM_53_0.png" src="_images/13_EM_53_0.png" />
+</div>
+</div>
+</div>
+</div>
+</div>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            kernelName: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+              </div>
+              
+        
+        <div class='prev-next-bottom'>
+            
+    <a class='left-prev' id="prev-link" href="12_dimentionality_reduction.html" title="previous page"><span class="section-number">12. </span>Dimentionality Reduction</a>
+    <a class='right-next' id="next-link" href="14_HMM.html" title="next page"><span class="section-number">14. </span>Hidden Markov Model</a>
+
+        </div>
+        
+        </div>
+    </div>
+    <footer class="footer mt-5 mt-md-0">
+    <div class="container">
+      <p>
+        
+          By newfacade<br/>
+        
+            &copy; Copyright 2020.<br/>
+      </p>
+    </div>
+  </footer>
+</main>
+
+
+      </div>
+    </div>
+
+    
+  <script src="_static/js/index.d3f166471bb80abb5163.js"></script>
+
+
+    
+  </body>
+</html>
